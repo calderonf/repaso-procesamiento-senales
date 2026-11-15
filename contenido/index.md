@@ -6,12 +6,12 @@ Material de estudio de **Procesamiento de Señales**. Aquí encuentra un resumen
 
 <a class="tarjeta" href="resumen.html" markdown="1">
 <span class="tarjeta-titulo">Resumen teórico</span>
-<span class="tarjeta-texto">Las ideas y fórmulas de cada unidad: filtros analógicos, muestreo, conversión A/D y D/A, sigma-delta, filtros digitales, punto fijo, FFT y Wiener.</span>
+<span class="tarjeta-texto">Las ideas y fórmulas de cada unidad: filtros analógicos, muestreo, conversión A/D y D/A, sigma-delta, filtros digitales y punto fijo, más FFT y Wiener como temas opcionales.</span>
 </a>
 
 <a class="tarjeta" href="preguntas.html" markdown="1">
 <span class="tarjeta-titulo">Banco de preguntas</span>
-<span class="tarjeta-texto">77 preguntas conceptuales y de cálculo, organizadas por tema. Cada una tiene su respuesta explicada en un desplegable.</span>
+<span class="tarjeta-texto">77 preguntas conceptuales y de cálculo, organizadas por tema (las de los temas 11 y 12 son opcionales). Cada una tiene su respuesta explicada en un desplegable.</span>
 </a>
 
 </div>
@@ -25,6 +25,8 @@ Material de estudio de **Procesamiento de Señales**. Aquí encuentra un resumen
 
 ## Temas del curso
 
+El examen final cubre las unidades hasta punto fijo. Las dos últimas filas son temas opcionales.
+
 | Unidad | Temas |
 | --- | --- |
 | Filtros analógicos | Respuesta en frecuencia y Bode; voz, ruido y pre/de-énfasis; Butterworth, Chebyshev, elíptico y Bessel; sistemas de segundo orden; Sallen-Key, MFB y biquad; transformaciones de frecuencia; ruido térmico |
@@ -32,5 +34,5 @@ Material de estudio de **Procesamiento de Señales**. Aquí encuentra un resumen
 | Sobremuestreo | Sobremuestreo directo; codificación diferencial; modulación sigma-delta |
 | Filtros digitales | Ecuaciones en diferencias y transformada Z; FIR, fase lineal y diseño por ventanas; IIR, polos y ceros, estabilidad y osciladores; estructuras de realización; implementación en C |
 | Punto fijo | Formatos con y sin signo; notación Q; redondeo y overflow; tamaños de producto y acumulador; normalización y ganancia DC |
-| Análisis espectral | DFT y FFT; leakage y ventanas; medición de THD |
-| Filtrado óptimo | Procesos aleatorios, autocorrelación y densidad espectral; filtro de Wiener |
+| Análisis espectral *(opcional, no entra en el examen)* | DFT y FFT; leakage y ventanas; medición de THD |
+| Filtrado óptimo *(opcional, no entra en el examen)* | Procesos aleatorios, autocorrelación y densidad espectral; filtro de Wiener |

@@ -2,6 +2,8 @@
 
 Intente responder cada pregunta por escrito o en voz alta **antes** de desplegar la respuesta. Las preguntas de cálculo se pueden resolver a mano. Si una respuesta le sorprende, vuelva a la sección correspondiente del [resumen](resumen.html).
 
+**El examen final cubre los temas 1 a 10.** Los temas 11 (análisis espectral y THD) y 12 (señales aleatorias y Wiener) son **opcionales**: practíquelos solo si quiere profundizar.
+
 ## 1. Respuesta en frecuencia y Bode
 
 **1.** ¿Por qué la respuesta en frecuencia $H(j\omega)$ basta para calcular la respuesta en estado estable de un SLIT ante cualquier señal, y no solo ante senoides?
@@ -366,7 +368,10 @@ Intente responder cada pregunta por escrito o en voz alta **antes** de desplegar
 ??? respuesta "Ver respuesta"
     El estándar de C solo garantiza un mínimo para `int`: en el Arduino UNO es de 16 bits y en un PC o en la Pico es de 32. Un código que suma productos en `int` funciona en el PC y se desborda en el UNO. Se usan los tipos de ancho fijo de `<stdint.h>` (`int16_t`, `int32_t`, `int64_t`), y si hace falta se verifica con `static_assert(sizeof(int32_t) == 4, ...)`, recordando que `sizeof` cuenta bytes.
 
-## 11. Análisis espectral y THD
+## 11. Análisis espectral y THD (OPCIONAL)
+
+!!! nota "Tema opcional"
+    Este tema complementa el curso, pero **no entra en el examen final**. El examen cubre hasta el tema 10.
 
 **68.** Con $f_s = 8$ kHz y $N = 1024$, ¿cuál es la resolución en frecuencia, cuánto dura la ventana y en qué bin aparece un tono de 1 kHz?
 
@@ -398,7 +403,10 @@ Intente responder cada pregunta por escrito o en voz alta **antes** de desplegar
 ??? respuesta "Ver respuesta"
     DFT directa: $N^2 \approx 1{,}05$ millones de multiplicaciones complejas. FFT: del orden de $N\log_2N = 1024\cdot 10 \approx 10\,240$. Es unas 100 veces menos, y la ventaja crece con $N$.
 
-## 12. Señales aleatorias y Wiener
+## 12. Señales aleatorias y Wiener (OPCIONAL)
+
+!!! nota "Tema opcional"
+    Este tema complementa el curso, pero **no entra en el examen final**. El examen cubre hasta el tema 10.
 
 **74.** ¿Qué significa que un proceso aleatorio sea estacionario en sentido amplio? Dé un ejemplo de una señal que no lo sea.
 

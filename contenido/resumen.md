@@ -2,6 +2,8 @@
 
 Este resumen recorre el curso en el mismo orden en que se vio: filtros analógicos, conversión A/D y D/A, sobremuestreo y sigma-delta, filtros digitales, punto fijo, análisis espectral y filtrado óptimo. No reemplaza las presentaciones de clase; sirve para repasar las ideas y las fórmulas que más se usan. Al final hay una tabla con las fórmulas clave.
 
+**El examen final cubre las secciones 1 a 10.** Las secciones 11 (análisis espectral) y 12 (señales aleatorias y Wiener) son **opcionales**: sirven para profundizar, pero no entran en el examen.
+
 !!! nota "Cómo estudiar con este material"
     Lea cada sección, cierre la página e intente explicar en voz alta las ideas principales. Luego vaya al [banco de preguntas](preguntas.html), intente responder cada pregunta antes de desplegar la respuesta y vuelva aquí cuando falle.
 
@@ -515,7 +517,10 @@ Cuantizar los coeficientes cambia la ganancia DC. Ejemplo: $h = [0{,}3\ \ 0{,}4\
 
 La cuantización de coeficientes también se ve como un ruido en la respuesta en frecuencia. En el laboratorio se escoge el menor ancho de palabra que mantiene ese ruido por debajo de un umbral, por ejemplo −50 o −60 dB.
 
-## 11. Análisis espectral: DFT, FFT, ventanas y THD
+## 11. Análisis espectral: DFT, FFT, ventanas y THD (OPCIONAL)
+
+!!! nota "Tema opcional"
+    Esta sección complementa el curso, pero **no entra en el examen final**. El examen cubre hasta la sección 10.
 
 ### 11.1 DFT y FFT
 
@@ -557,7 +562,10 @@ Los armónicos se suman en potencia (raíz de la suma de cuadrados). Para medirl
 
 La transformada de Fourier de tiempo corto aplica la DFT a bloques sucesivos con ventana y salto $R$. El espectrograma es su magnitud al cuadrado. Una ventana larga da buena resolución en frecuencia y mala en tiempo; una corta, lo contrario.
 
-## 12. Señales aleatorias y filtro de Wiener
+## 12. Señales aleatorias y filtro de Wiener (OPCIONAL)
+
+!!! nota "Tema opcional"
+    Esta sección complementa el curso, pero **no entra en el examen final**. El examen cubre hasta la sección 10.
 
 ### 12.1 Repaso de probabilidad
 
@@ -587,6 +595,8 @@ $$
 
 ## 13. Fórmulas clave
 
+Las filas marcadas como *(opcional)* corresponden a las secciones 11 y 12, que no entran en el examen.
+
 | Tema | Fórmula |
 | --- | --- |
 | Decibeles | $20\log_{10}(\text{amplitud})$, $10\log_{10}(\text{potencia})$ |
@@ -605,8 +615,8 @@ $$
 | Estabilidad IIR | Polos con $\lvert p\rvert < 1$ |
 | Resonador digital | Polos en $re^{\pm j\theta}$; $f_0 = \theta f_s/(2\pi)$; $BW \approx (1-r)f_s/\pi$ |
 | Punto fijo | $x = r/2^F$; producto: $W_a+W_b$, $F_a+F_b$; acumulador: $+\lceil\log_2 N\rceil$ bits |
-| DFT | $\Delta f = f_s/N$; bin $k \leftrightarrow kf_s/N$; FFT $O(N\log_2 N)$ |
-| Amplitud con ventana | $A_k = 2\lvert X[k]\rvert/(N\bar{w})$ |
-| THD | $100\sqrt{\sum_{k\ge2}V_k^2}/V_1$ |
+| DFT *(opcional)* | $\Delta f = f_s/N$; bin $k \leftrightarrow kf_s/N$; FFT $O(N\log_2 N)$ |
+| Amplitud con ventana *(opcional)* | $A_k = 2\lvert X[k]\rvert/(N\bar{w})$ |
+| THD *(opcional)* | $100\sqrt{\sum_{k\ge2}V_k^2}/V_1$ |
 | Ruido térmico | $v_n = \sqrt{4kTRB}$ |
-| Wiener | $\Gamma_M\mathbf{h} = \boldsymbol{\gamma}_d$ |
+| Wiener *(opcional)* | $\Gamma_M\mathbf{h} = \boldsymbol{\gamma}_d$ |

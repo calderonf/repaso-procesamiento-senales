@@ -46,8 +46,8 @@
 <li><a href="#8-filtros-digitales">8. Filtros digitales</a></li>
 <li><a href="#9-implementacion-en-microcontrolador">9. Implementación en microcontrolador</a></li>
 <li><a href="#10-punto-fijo">10. Punto fijo</a></li>
-<li><a href="#11-analisis-espectral-y-thd">11. Análisis espectral y THD</a></li>
-<li><a href="#12-senales-aleatorias-y-wiener">12. Señales aleatorias y Wiener</a></li>
+<li><a href="#11-analisis-espectral-y-thd-opcional">11. Análisis espectral y THD (OPCIONAL)</a></li>
+<li><a href="#12-senales-aleatorias-y-wiener-opcional">12. Señales aleatorias y Wiener (OPCIONAL)</a></li>
 </ul>
 </div>
 </nav>
@@ -55,6 +55,7 @@
       
       <h1 id="banco-de-preguntas-de-repaso">Banco de preguntas de repaso</h1>
 <p>Intente responder cada pregunta por escrito o en voz alta <strong>antes</strong> de desplegar la respuesta. Las preguntas de cálculo se pueden resolver a mano. Si una respuesta le sorprende, vuelva a la sección correspondiente del <a href="resumen.html">resumen</a>.</p><div class="herramientas"><button type="button" id="abrir-todas">Mostrar todas las respuestas</button><button type="button" id="cerrar-todas">Ocultar todas</button></div>
+<p><strong>El examen final cubre los temas 1 a 10.</strong> Los temas 11 (análisis espectral y THD) y 12 (señales aleatorias y Wiener) son <strong>opcionales</strong>: practíquelos solo si quiere profundizar.</p>
 <h2 id="1-respuesta-en-frecuencia-y-bode">1. Respuesta en frecuencia y Bode</h2>
 <p><strong>1.</strong> ¿Por qué la respuesta en frecuencia <span class="arithmatex">\(H(j\omega)\)</span> basta para calcular la respuesta en estado estable de un SLIT ante cualquier señal, y no solo ante senoides?</p>
 <details class="respuesta" id="r1">
@@ -403,7 +404,11 @@
 <summary>Ver respuesta</summary>
 <p>El estándar de C solo garantiza un mínimo para <code>int</code>: en el Arduino UNO es de 16 bits y en un PC o en la Pico es de 32. Un código que suma productos en <code>int</code> funciona en el PC y se desborda en el UNO. Se usan los tipos de ancho fijo de <code>&lt;stdint.h&gt;</code> (<code>int16_t</code>, <code>int32_t</code>, <code>int64_t</code>), y si hace falta se verifica con <code>static_assert(sizeof(int32_t) == 4, ...)</code>, recordando que <code>sizeof</code> cuenta bytes.</p>
 </details>
-<h2 id="11-analisis-espectral-y-thd">11. Análisis espectral y THD</h2>
+<h2 id="11-analisis-espectral-y-thd-opcional">11. Análisis espectral y THD (OPCIONAL)</h2>
+<div class="admonition nota">
+<p class="admonition-title">Tema opcional</p>
+<p>Este tema complementa el curso, pero <strong>no entra en el examen final</strong>. El examen cubre hasta el tema 10.</p>
+</div>
 <p><strong>68.</strong> Con <span class="arithmatex">\(f_s = 8\)</span> kHz y <span class="arithmatex">\(N = 1024\)</span>, ¿cuál es la resolución en frecuencia, cuánto dura la ventana y en qué bin aparece un tono de 1 kHz?</p>
 <details class="respuesta" id="r68">
 <summary>Ver respuesta</summary>
@@ -434,7 +439,11 @@
 <summary>Ver respuesta</summary>
 <p>DFT directa: <span class="arithmatex">\(N^2 \approx 1{,}05\)</span> millones de multiplicaciones complejas. FFT: del orden de <span class="arithmatex">\(N\log_2N = 1024\cdot 10 \approx 10\,240\)</span>. Es unas 100 veces menos, y la ventaja crece con <span class="arithmatex">\(N\)</span>.</p>
 </details>
-<h2 id="12-senales-aleatorias-y-wiener">12. Señales aleatorias y Wiener</h2>
+<h2 id="12-senales-aleatorias-y-wiener-opcional">12. Señales aleatorias y Wiener (OPCIONAL)</h2>
+<div class="admonition nota">
+<p class="admonition-title">Tema opcional</p>
+<p>Este tema complementa el curso, pero <strong>no entra en el examen final</strong>. El examen cubre hasta el tema 10.</p>
+</div>
 <p><strong>74.</strong> ¿Qué significa que un proceso aleatorio sea estacionario en sentido amplio? Dé un ejemplo de una señal que no lo sea.</p>
 <details class="respuesta" id="r74">
 <summary>Ver respuesta</summary>

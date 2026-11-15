@@ -10,6 +10,8 @@ Sitio web de estudio para el curso de Procesamiento de Señales. Tiene tres pág
 | Resumen | [resumen.html](https://calderonf.github.io/repaso-procesamiento-senales/resumen.html) | La teoría del curso resumida por unidades, con una tabla final de fórmulas clave |
 | Preguntas | [preguntas.html](https://calderonf.github.io/repaso-procesamiento-senales/preguntas.html) | 77 preguntas abiertas con la respuesta explicada en un desplegable |
 
+El examen final cubre los temas 1 a 10. Los temas 11 (análisis espectral y THD) y 12 (señales aleatorias y Wiener) están marcados como **opcionales** en el resumen y en las preguntas.
+
 Las fórmulas se muestran con MathJax, que se carga desde internet, así que el sitio necesita conexión para verlas bien.
 
 ## Publicación
