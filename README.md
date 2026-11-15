@@ -1,30 +1,20 @@
 # Repaso para el examen final – Procesamiento de Señales
 
+**Sitio publicado: https://calderonf.github.io/repaso-procesamiento-senales/**
+
 Sitio web de estudio para el curso de Procesamiento de Señales. Tiene tres páginas:
 
-- **Inicio** (`index.html`): presentación y forma de estudiar.
-- **Resumen** (`resumen.html`): la teoría del curso resumida por unidades, con una tabla final de fórmulas clave.
-- **Preguntas** (`preguntas.html`): 77 preguntas abiertas con la respuesta explicada en un desplegable.
+| Página | Enlace | Contenido |
+| --- | --- | --- |
+| Inicio | [index.html](https://calderonf.github.io/repaso-procesamiento-senales/) | Presentación y forma de estudiar |
+| Resumen | [resumen.html](https://calderonf.github.io/repaso-procesamiento-senales/resumen.html) | La teoría del curso resumida por unidades, con una tabla final de fórmulas clave |
+| Preguntas | [preguntas.html](https://calderonf.github.io/repaso-procesamiento-senales/preguntas.html) | 77 preguntas abiertas con la respuesta explicada en un desplegable |
 
 Las fórmulas se muestran con MathJax, que se carga desde internet, así que el sitio necesita conexión para verlas bien.
 
-## Publicar en GitHub Pages
+## Publicación
 
-1. Cree un repositorio nuevo en GitHub, por ejemplo `repaso-procesamiento-senales`. Puede ser público o, si su cuenta lo permite, privado con Pages.
-2. Suba **todo** el contenido de esta carpeta a la raíz del repositorio, incluido el archivo oculto `.nojekyll`. Desde la terminal:
-
-   ```bash
-   git init
-   git add .
-   git commit -m "Material de repaso"
-   git branch -M main
-   git remote add origin https://github.com/<usuario>/repaso-procesamiento-senales.git
-   git push -u origin main
-   ```
-
-   También puede arrastrar los archivos en la página del repositorio (*Add file → Upload files*). En ese caso cree `.nojekyll` a mano con *Add file → Create new file*, vacío.
-3. En el repositorio vaya a **Settings → Pages**. En *Build and deployment* escoja *Deploy from a branch*, la rama `main` y la carpeta `/ (root)`. Guarde.
-4. En uno o dos minutos el sitio queda en `https://<usuario>.github.io/repaso-procesamiento-senales/`.
+El sitio se publica con GitHub Pages desde la rama `main`, carpeta `/ (root)` (*Settings → Pages*). El archivo vacío `.nojekyll` le indica a GitHub que publique los HTML tal cual, sin procesarlos con Jekyll; no lo borre. Cada `git push` a `main` actualiza el sitio en uno o dos minutos.
 
 ## Modificar el contenido
 
@@ -36,7 +26,7 @@ El texto está en Markdown en la carpeta `contenido/`:
 | `contenido/resumen.md` | Resumen |
 | `contenido/preguntas.md` | Preguntas |
 
-Después de editar, regenere las páginas HTML y suba los cambios:
+Las páginas HTML de la raíz se generan a partir de esos archivos: no las edite a mano, porque `build.py` las sobrescribe. Después de editar, regenere las páginas y suba los cambios:
 
 ```bash
 pip install markdown pymdown-extensions
@@ -71,7 +61,12 @@ git add . && git commit -m "Actualiza material" && git push
 ├── assets/sitio.js                             botones para abrir y cerrar todas las respuestas
 ├── assets/plantilla.html                       plantilla común de las páginas
 ├── build.py                                    convierte Markdown en HTML
-└── .nojekyll                                   le indica a GitHub Pages que publique los HTML tal cual
+├── .nojekyll                                   le indica a GitHub Pages que publique los HTML tal cual
+└── LICENSE                                     licencia CC0 1.0
 ```
 
 Al imprimir la página de preguntas (o guardarla como PDF) todas las respuestas salen abiertas.
+
+## Licencia
+
+El contenido se publica bajo [CC0 1.0 Universal](LICENSE): cualquiera puede copiarlo, modificarlo y redistribuirlo sin pedir permiso.
