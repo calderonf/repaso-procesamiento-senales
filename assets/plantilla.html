@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{titulo}} · Procesamiento de Señales</title>
+  <link rel="stylesheet" href="assets/estilo.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        ignoreHtmlClass: ".*|",
+        processHtmlClass: "arithmatex"
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="assets/sitio.js"></script>
+</head>
+<body class="{{clase}}">
+  <header class="encabezado">
+    <div class="encabezado-interno">
+      <a class="marca" href="index.html">Procesamiento de Señales <span>Repaso para el examen final</span></a>
+      <nav class="menu" aria-label="Secciones del sitio">
+        {{menu}}
+      </nav>
+    </div>
+  </header>
+  <div class="contenedor">
+    {{indice}}
+    <main class="contenido">
+      {{herramientas}}
+      {{contenido}}
+    </main>
+  </div>
+  <footer class="pie">
+    Material de repaso del curso Procesamiento de Señales · Prof. Francisco Carlos Calderón
+  </footer>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repaso para el examen final · Procesamiento de Señales</title>
+  <link rel="stylesheet" href="assets/estilo.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        ignoreHtmlClass: ".*|",
+        processHtmlClass: "arithmatex"
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="assets/sitio.js"></script>
+</head>
+<body class="sin-indice">
+  <header class="encabezado">
+    <div class="encabezado-interno">
+      <a class="marca" href="index.html">Procesamiento de Señales <span>Repaso para el examen final</span></a>
+      <nav class="menu" aria-label="Secciones del sitio">
+        <a href="index.html" class="activo" aria-current="page">Inicio</a>
+        <a href="resumen.html">Resumen</a>
+        <a href="preguntas.html">Preguntas</a>
+      </nav>
+    </div>
+  </header>
+  <div class="contenedor">
+    
+    <main class="contenido">
+      
+      <h1 id="repaso-para-el-examen-final">Repaso para el examen final</h1>
+<p>Material de estudio de <strong>Procesamiento de Señales</strong>. Aquí encuentra un resumen de la teoría de todo el curso y un banco de preguntas abiertas con la respuesta escondida, para practicar antes del examen.</p>
+<div class="tarjetas">
+<p><a class="tarjeta" href="resumen.html" markdown="1">
+<span class="tarjeta-titulo">Resumen teórico</span>
+<span class="tarjeta-texto">Las ideas y fórmulas de cada unidad: filtros analógicos, muestreo, conversión A/D y D/A, sigma-delta, filtros digitales, punto fijo, FFT y Wiener.</span>
+</a></p>
+<p><a class="tarjeta" href="preguntas.html" markdown="1">
+<span class="tarjeta-titulo">Banco de preguntas</span>
+<span class="tarjeta-texto">77 preguntas conceptuales y de cálculo, organizadas por tema. Cada una tiene su respuesta explicada en un desplegable.</span>
+</a></p>
+</div>
+<h2 id="como-estudiar">Cómo estudiar</h2>
+<ol>
+<li>Lea una sección del resumen y trate de explicarla en voz alta sin mirar.</li>
+<li>Vaya a las preguntas del mismo tema y respóndalas por escrito <strong>antes</strong> de abrir la respuesta.</li>
+<li>Compare su respuesta con la explicación. Si falló, vuelva al resumen y repita la pregunta al día siguiente.</li>
+<li>Las preguntas de cálculo se pueden resolver a mano: practíquelas sin calculadora cuando sea posible.</li>
+</ol>
+<h2 id="temas-del-curso">Temas del curso</h2>
+<table>
+<thead>
+<tr>
+<th>Unidad</th>
+<th>Temas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filtros analógicos</td>
+<td>Respuesta en frecuencia y Bode; voz, ruido y pre/de-énfasis; Butterworth, Chebyshev, elíptico y Bessel; sistemas de segundo orden; Sallen-Key, MFB y biquad; transformaciones de frecuencia; ruido térmico</td>
+</tr>
+<tr>
+<td>Conversión A/D y D/A</td>
+<td>Muestreo y aliasing; muestreo pasabanda; sample and hold; filtro antialias; cuantización y SNR; ADC, temporizadores e interrupciones del ATmega328P; D/A con PWM</td>
+</tr>
+<tr>
+<td>Sobremuestreo</td>
+<td>Sobremuestreo directo; codificación diferencial; modulación sigma-delta</td>
+</tr>
+<tr>
+<td>Filtros digitales</td>
+<td>Ecuaciones en diferencias y transformada Z; FIR, fase lineal y diseño por ventanas; IIR, polos y ceros, estabilidad y osciladores; estructuras de realización; implementación en C</td>
+</tr>
+<tr>
+<td>Punto fijo</td>
+<td>Formatos con y sin signo; notación Q; redondeo y overflow; tamaños de producto y acumulador; normalización y ganancia DC</td>
+</tr>
+<tr>
+<td>Análisis espectral</td>
+<td>DFT y FFT; leakage y ventanas; medición de THD</td>
+</tr>
+<tr>
+<td>Filtrado óptimo</td>
+<td>Procesos aleatorios, autocorrelación y densidad espectral; filtro de Wiener</td>
+</tr>
+</tbody>
+</table>
+    </main>
+  </div>
+  <footer class="pie">
+    Material de repaso del curso Procesamiento de Señales · Prof. Francisco Carlos Calderón
+  </footer>
+</body>
+</html>

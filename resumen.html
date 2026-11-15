@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resumen teórico del curso · Procesamiento de Señales</title>
+  <link rel="stylesheet" href="assets/estilo.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        ignoreHtmlClass: ".*|",
+        processHtmlClass: "arithmatex"
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="assets/sitio.js"></script>
+</head>
+<body class="con-indice">
+  <header class="encabezado">
+    <div class="encabezado-interno">
+      <a class="marca" href="index.html">Procesamiento de Señales <span>Repaso para el examen final</span></a>
+      <nav class="menu" aria-label="Secciones del sitio">
+        <a href="index.html">Inicio</a>
+        <a href="resumen.html" class="activo" aria-current="page">Resumen</a>
+        <a href="preguntas.html">Preguntas</a>
+      </nav>
+    </div>
+  </header>
+  <div class="contenedor">
+    <nav class="indice" aria-label="Contenido de la página"><p class="indice-titulo">En esta página</p><div class="toc">
+<ul>
+<li><a href="#1-el-sistema-de-procesamiento-de-senales">1. El sistema de procesamiento de señales</a></li>
+<li><a href="#2-respuesta-en-frecuencia-y-diagramas-de-bode">2. Respuesta en frecuencia y diagramas de Bode</a><ul>
+<li><a href="#decibeles">Decibeles</a></li>
+<li><a href="#reglas-de-bode">Reglas de Bode</a></li>
+</ul>
+</li>
+<li><a href="#3-la-senal-de-voz-y-la-transmision-con-ruido">3. La señal de voz y la transmisión con ruido</a><ul>
+<li><a href="#caracteristicas-en-el-tiempo">Características en el tiempo</a></li>
+<li><a href="#caracteristicas-en-frecuencia">Características en frecuencia</a></li>
+<li><a href="#canal-con-ruido-y-enfasis">Canal con ruido y énfasis</a></li>
+</ul>
+</li>
+<li><a href="#4-filtros-analogicos">4. Filtros analógicos</a><ul>
+<li><a href="#41-tipos-y-especificaciones">4.1 Tipos y especificaciones</a></li>
+<li><a href="#42-aproximaciones-clasicas">4.2 Aproximaciones clásicas</a></li>
+<li><a href="#43-desnormalizacion-y-transformaciones-de-frecuencia">4.3 Desnormalización y transformaciones de frecuencia</a></li>
+<li><a href="#44-sistemas-de-segundo-orden">4.4 Sistemas de segundo orden</a></li>
+<li><a href="#45-ruido-termico">4.5 Ruido térmico</a></li>
+</ul>
+</li>
+<li><a href="#5-muestreo-y-reconstruccion">5. Muestreo y reconstrucción</a><ul>
+<li><a href="#51-teorema-del-muestreo">5.1 Teorema del muestreo</a></li>
+<li><a href="#52-tipos-de-muestreo">5.2 Tipos de muestreo</a></li>
+<li><a href="#53-filtro-antialias">5.3 Filtro antialias</a></li>
+</ul>
+</li>
+<li><a href="#6-cuantizacion-y-conversion-ad">6. Cuantización y conversión A/D</a><ul>
+<li><a href="#61-cuantizacion-uniforme">6.1 Cuantización uniforme</a></li>
+<li><a href="#62-el-conversor-del-arduino-uno-atmega328p">6.2 El conversor del Arduino UNO (ATmega328P)</a></li>
+<li><a href="#63-temporizadores-e-interrupciones">6.3 Temporizadores e interrupciones</a></li>
+</ul>
+</li>
+<li><a href="#7-conversion-da-con-pwm">7. Conversión D/A con PWM</a></li>
+<li><a href="#8-sobremuestreo-y-modulacion-sigma-delta">8. Sobremuestreo y modulación sigma-delta</a><ul>
+<li><a href="#81-sobremuestreo-directo">8.1 Sobremuestreo directo</a></li>
+<li><a href="#82-codificacion-diferencial">8.2 Codificación diferencial</a></li>
+<li><a href="#83-modulador-sigma-delta">8.3 Modulador sigma-delta</a></li>
+</ul>
+</li>
+<li><a href="#9-filtros-digitales">9. Filtros digitales</a><ul>
+<li><a href="#91-sistemas-discretos">9.1 Sistemas discretos</a></li>
+<li><a href="#92-filtros-ideales-y-fase-lineal">9.2 Filtros ideales y fase lineal</a></li>
+<li><a href="#93-filtros-fir">9.3 Filtros FIR</a></li>
+<li><a href="#94-diseno-fir-por-ventanas">9.4 Diseño FIR por ventanas</a></li>
+<li><a href="#95-filtros-iir">9.5 Filtros IIR</a></li>
+<li><a href="#96-estructuras-de-realizacion">9.6 Estructuras de realización</a></li>
+<li><a href="#97-implementacion-en-un-microcontrolador">9.7 Implementación en un microcontrolador</a></li>
+</ul>
+</li>
+<li><a href="#10-punto-fijo">10. Punto fijo</a><ul>
+<li><a href="#101-idea-central">10.1 Idea central</a></li>
+<li><a href="#102-formatos-y-rangos">10.2 Formatos y rangos</a></li>
+<li><a href="#103-codificar-redondear-y-desbordar">10.3 Codificar, redondear y desbordar</a></li>
+<li><a href="#104-tamanos-de-los-tipos-en-c">10.4 Tamaños de los tipos en C</a></li>
+<li><a href="#105-operaciones">10.5 Operaciones</a></li>
+<li><a href="#106-dos-significados-de-normalizar">10.6 Dos significados de "normalizar"</a></li>
+</ul>
+</li>
+<li><a href="#11-analisis-espectral-dft-fft-ventanas-y-thd">11. Análisis espectral: DFT, FFT, ventanas y THD</a><ul>
+<li><a href="#111-dft-y-fft">11.1 DFT y FFT</a></li>
+<li><a href="#112-leakage-y-ventanas">11.2 Leakage y ventanas</a></li>
+<li><a href="#113-distorsion-armonica-total-thd">11.3 Distorsión armónica total (THD)</a></li>
+<li><a href="#114-stft-y-espectrograma">11.4 STFT y espectrograma</a></li>
+</ul>
+</li>
+<li><a href="#12-senales-aleatorias-y-filtro-de-wiener">12. Señales aleatorias y filtro de Wiener</a><ul>
+<li><a href="#121-repaso-de-probabilidad">12.1 Repaso de probabilidad</a></li>
+<li><a href="#122-filtro-de-wiener-fir">12.2 Filtro de Wiener FIR</a></li>
+</ul>
+</li>
+<li><a href="#13-formulas-clave">13. Fórmulas clave</a></li>
+</ul>
+</div>
+</nav>
+    <main class="contenido">
+      
+      <h1 id="resumen-teorico-del-curso">Resumen teórico del curso</h1>
+<p>Este resumen recorre el curso en el mismo orden en que se vio: filtros analógicos, conversión A/D y D/A, sobremuestreo y sigma-delta, filtros digitales, punto fijo, análisis espectral y filtrado óptimo. No reemplaza las presentaciones de clase; sirve para repasar las ideas y las fórmulas que más se usan. Al final hay una tabla con las fórmulas clave.</p>
+<div class="admonition nota">
+<p class="admonition-title">Cómo estudiar con este material</p>
+<p>Lea cada sección, cierre la página e intente explicar en voz alta las ideas principales. Luego vaya al <a href="preguntas.html">banco de preguntas</a>, intente responder cada pregunta antes de desplegar la respuesta y vuelva aquí cuando falle.</p>
+</div>
+<h2 id="1-el-sistema-de-procesamiento-de-senales">1. El sistema de procesamiento de señales</h2>
+<p>Casi todo sistema práctico sigue la misma cadena: <strong>adquirir</strong>, <strong>procesar</strong> y <strong>reconstruir</strong>.</p>
+<ol>
+<li><strong>Sensor y acondicionamiento.</strong> Un micrófono, un electrodo o un sensor de vibración entrega un voltaje pequeño que se amplifica y se desplaza al rango del conversor.</li>
+<li><strong>Filtro antialias (analógico).</strong> Limita la banda de la señal antes de muestrear.</li>
+<li><strong>Muestreo y retención (S/H) y conversor A/D.</strong> Toman muestras a una tasa constante fs y las cuantizan con N bits.</li>
+<li><strong>Procesamiento digital.</strong> Filtros FIR o IIR, análisis espectral, detección, compresión.</li>
+<li><strong>Conversor D/A</strong> (por ejemplo, PWM o sigma-delta) y <strong>filtro de reconstrucción</strong>, que elimina las réplicas espectrales y entrega una señal continua al actuador.</li>
+</ol>
+<p>Aunque el procesamiento sea digital, siempre hacen falta filtros analógicos: uno antes del muestreo, para evitar el solapamiento (aliasing), y otro después del D/A, para reconstruir.</p>
+<h2 id="2-respuesta-en-frecuencia-y-diagramas-de-bode">2. Respuesta en frecuencia y diagramas de Bode</h2>
+<p>Un sistema lineal e invariante en el tiempo (SLIT) continuo se describe con su función de transferencia</p>
+<div class="arithmatex">\[
+H(s) = \frac{N(s)}{D(s)} = K\frac{(s-z_1)(s-z_2)\cdots}{(s-p_1)(s-p_2)\cdots}
+\]</div>
+<p>Los <strong>ceros</strong> son las raíces de <span class="arithmatex">\(N(s)\)</span> y los <strong>polos</strong> las de <span class="arithmatex">\(D(s)\)</span>. Para que el sistema sea estable, todos los polos deben estar en el semiplano izquierdo (<span class="arithmatex">\(\operatorname{Re}\{p_i\} &lt; 0\)</span>): así cada modo <span class="arithmatex">\(e^{p_i t}\)</span> decae.</p>
+<p>En estado estable senoidal, <span class="arithmatex">\(s = j\omega\)</span>. La <strong>respuesta en frecuencia</strong> <span class="arithmatex">\(H(j\omega)\)</span> es un número complejo: su magnitud dice cuánto se amplifica una senoide de frecuencia <span class="arithmatex">\(\omega\)</span> y su fase cuánto se desplaza. Como cualquier señal se puede escribir como suma de senoides, <span class="arithmatex">\(H(j\omega)\)</span> contiene toda la información del sistema.</p>
+<h3 id="decibeles">Decibeles</h3>
+<div class="arithmatex">\[
+G_{dB} = 20\log_{10}\lvert H(j\omega)\rvert \qquad\qquad P_{dB} = 10\log_{10}\frac{P_2}{P_1}
+\]</div>
+<table>
+<thead>
+<tr>
+<th>Ganancia en dB</th>
+<th>Factor de amplitud</th>
+<th>Factor de potencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+20 dB</td>
+<td>10</td>
+<td>100</td>
+</tr>
+<tr>
+<td>+6 dB</td>
+<td>≈ 2</td>
+<td>≈ 4</td>
+</tr>
+<tr>
+<td>0 dB</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>−3 dB</td>
+<td><span class="arithmatex">\(1/\sqrt{2} \approx 0{,}707\)</span></td>
+<td>1/2</td>
+</tr>
+<tr>
+<td>−6 dB</td>
+<td>≈ 0,5</td>
+<td>≈ 0,25</td>
+</tr>
+<tr>
+<td>−20 dB</td>
+<td>0,1</td>
+<td>0,01</td>
+</tr>
+<tr>
+<td>−40 dB</td>
+<td>0,01</td>
+<td>0,0001</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reglas-de-bode">Reglas de Bode</h3>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Magnitud</th>
+<th>Fase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Constante <span class="arithmatex">\(K\)</span></td>
+<td>Recta horizontal en <span class="arithmatex">\(20\log_{10}\lvert K\rvert\)</span></td>
+<td>0° si <span class="arithmatex">\(K&gt;0\)</span>; −180° si <span class="arithmatex">\(K&lt;0\)</span></td>
+</tr>
+<tr>
+<td>Cero en el origen, <span class="arithmatex">\(s\)</span></td>
+<td>+20 dB/década, cruza 0 dB en <span class="arithmatex">\(\omega=1\)</span></td>
+<td>+90° constante</td>
+</tr>
+<tr>
+<td>Polo en el origen, <span class="arithmatex">\(1/s\)</span></td>
+<td>−20 dB/década, cruza 0 dB en <span class="arithmatex">\(\omega=1\)</span></td>
+<td>−90° constante</td>
+</tr>
+<tr>
+<td>Polo simple, <span class="arithmatex">\(1/(1+s/\omega_c)\)</span></td>
+<td>0 dB hasta <span class="arithmatex">\(\omega_c\)</span>, luego −20 dB/década; vale −3 dB en <span class="arithmatex">\(\omega_c\)</span></td>
+<td>De 0° a −90°; −45° en <span class="arithmatex">\(\omega_c\)</span>; pendiente −45°/década entre <span class="arithmatex">\(0{,}1\omega_c\)</span> y <span class="arithmatex">\(10\omega_c\)</span></td>
+</tr>
+<tr>
+<td>Cero simple, <span class="arithmatex">\(1+s/\omega_c\)</span></td>
+<td>Igual que el polo pero +20 dB/década</td>
+<td>De 0° a +90°</td>
+</tr>
+<tr>
+<td>Par de polos complejos</td>
+<td>0 dB, luego −40 dB/década; cerca de <span class="arithmatex">\(\omega_0\)</span> hay un pico que depende de <span class="arithmatex">\(\xi\)</span></td>
+<td>De 0° a −180°; −90° en <span class="arithmatex">\(\omega_0\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>−20 dB/década equivale a −6 dB/octava, y −40 dB/década a −12 dB/octava.</p>
+<p><strong>Interpretación geométrica.</strong> <span class="arithmatex">\(\lvert H(j\omega)\rvert\)</span> es proporcional al producto de las distancias desde <span class="arithmatex">\(j\omega\)</span> hasta los ceros, dividido por el producto de las distancias hasta los polos. Cerca de un polo próximo al eje <span class="arithmatex">\(j\omega\)</span> la magnitud crece (resonancia) y la fase cambia rápido. Cerca de un cero próximo al eje la magnitud se hunde.</p>
+<h2 id="3-la-senal-de-voz-y-la-transmision-con-ruido">3. La señal de voz y la transmisión con ruido</h2>
+<h3 id="caracteristicas-en-el-tiempo">Características en el tiempo</h3>
+<p>En clase se analizó una grabación de voz a 8 kHz y 16 bits. Sus estadísticas típicas son:</p>
+<ul>
+<li>Distribución de amplitudes de tipo <strong>exponencial bilateral</strong> (laplaciana), muy concentrada cerca de cero, con picos ocasionales grandes.</li>
+<li><strong>Factor de cresta</strong> (pico/rms) alrededor de 11, es decir unos 21 dB. Un seno tiene factor de cresta <span class="arithmatex">\(\sqrt{2}\)</span> (3 dB).</li>
+<li>Por eso la voz necesita un <strong>rango dinámico</strong> amplio: si el conversor se ajusta para no recortar los picos, el nivel típico queda muy por debajo de la escala completa.</li>
+</ul>
+<h3 id="caracteristicas-en-frecuencia">Características en frecuencia</h3>
+<ul>
+<li>El espectro de potencia tiene un máximo cerca de 600 Hz y cae unos 30 dB hacia 4 kHz.</li>
+<li>Más del 90 % de la potencia está en menos del 40 % del ancho de banda (las bajas frecuencias).</li>
+<li><strong>Sonidos sonoros</strong> (vocales): son cuasiperiódicos. Su espectro tiene armónicos de la frecuencia fundamental <span class="arithmatex">\(f_0\)</span>, que es la vibración de las cuerdas vocales. En idiomas europeos, <span class="arithmatex">\(f_0\)</span> media es cerca de 119 Hz en hombres y 207 Hz en mujeres.</li>
+<li><strong>Sonidos no sonoros</strong> (consonantes como /s/, /f/): no son periódicos y su energía está dispersa en altas frecuencias, como un ruido.</li>
+<li>El <strong>tracto vocal</strong> actúa como un filtro que da forma a la envolvente del espectro (formantes).</li>
+<li>El <strong>espectrograma</strong> muestra la energía en tiempo y frecuencia. Una ventana larga da buena resolución en frecuencia y mala en tiempo; una corta, lo contrario.</li>
+</ul>
+<h3 id="canal-con-ruido-y-enfasis">Canal con ruido y énfasis</h3>
+<p>Un canal ideal con ruido blanco gaussiano aditivo (AWGN) suma ruido con la misma densidad espectral en todas las frecuencias. Como la voz tiene poca energía en altas frecuencias, allí la relación señal a ruido es mala y se pierde inteligibilidad (las consonantes).</p>
+<ul>
+<li><strong>Pre-énfasis (transmisor):</strong> realza las altas frecuencias antes de que se sume el ruido.</li>
+<li><strong>De-énfasis (receptor):</strong> es el filtro inverso. Restaura el espectro original de la voz y, al atenuar las altas frecuencias, atenúa también el ruido que entró allí.</li>
+</ul>
+<p>Con un cero y un polo separados una década se logran 20 dB de énfasis. Por ejemplo, para el pre-énfasis:</p>
+<div class="arithmatex">\[
+H_{pre}(s) = \frac{1 + s/\omega_z}{1 + s/\omega_p}, \qquad \omega_z = 2\pi\cdot 300,\quad \omega_p = 2\pi\cdot 3000
+\]</div>
+<p>El de-énfasis es <span class="arithmatex">\(1/H_{pre}(s)\)</span>: el polo pasa a 300 Hz y el cero a 3 kHz.</p>
+<h2 id="4-filtros-analogicos">4. Filtros analógicos</h2>
+<h3 id="41-tipos-y-especificaciones">4.1 Tipos y especificaciones</h3>
+<p>Con funciones de segundo orden <span class="arithmatex">\(D(s) = s^2 + b_1 s + b_0\)</span>, el numerador define el tipo de filtro:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Numerador <span class="arithmatex">\(N(s)\)</span></th>
+<th>Ceros</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pasabajos (LP)</td>
+<td><span class="arithmatex">\(a_0\)</span></td>
+<td>Ninguno finito</td>
+</tr>
+<tr>
+<td>Pasaaltos (HP)</td>
+<td><span class="arithmatex">\(a_2 s^2\)</span></td>
+<td>Dos en <span class="arithmatex">\(s = 0\)</span></td>
+</tr>
+<tr>
+<td>Pasabanda (BP)</td>
+<td><span class="arithmatex">\(a_1 s\)</span></td>
+<td>Uno en <span class="arithmatex">\(s = 0\)</span></td>
+</tr>
+<tr>
+<td>Banda rechazada (notch, BS)</td>
+<td><span class="arithmatex">\(a_2 s^2 + a_0\)</span></td>
+<td>En <span class="arithmatex">\(\pm j\sqrt{a_0/a_2}\)</span></td>
+</tr>
+<tr>
+<td>Pasatodo (all-pass)</td>
+<td><span class="arithmatex">\(s^2 - b_1 s + b_0\)</span></td>
+<td>Espejo de los polos, en el semiplano derecho</td>
+</tr>
+</tbody>
+</table>
+<p>Un filtro real se especifica con:</p>
+<ul>
+<li><strong>Banda de paso</strong> (<span class="arithmatex">\(\omega &lt; \omega_p\)</span>): la ganancia no puede caer más de <span class="arithmatex">\(A_p\)</span> dB (rizado máximo).</li>
+<li><strong>Banda de rechazo</strong> (<span class="arithmatex">\(\omega &gt; \omega_s\)</span>): la atenuación debe ser al menos <span class="arithmatex">\(A_s\)</span> dB.</li>
+<li><strong>Banda de transición</strong> entre <span class="arithmatex">\(\omega_p\)</span> y <span class="arithmatex">\(\omega_s\)</span>.</li>
+<li>El <strong>factor de rizado</strong> <span class="arithmatex">\(\varepsilon\)</span> se relaciona con el rizado en dB como <span class="arithmatex">\(A_p = 10\log_{10}(1+\varepsilon^2)\)</span>. Con <span class="arithmatex">\(\varepsilon = 1\)</span>, <span class="arithmatex">\(A_p = 3\)</span> dB.</li>
+</ul>
+<p>El filtro ideal (ganancia constante en la banda de paso, cero en la de rechazo, fase lineal) no es realizable. <span class="arithmatex">\(\lvert H(j\omega)\rvert^2\)</span> es una función racional de <span class="arithmatex">\(\omega^2\)</span>, así que no puede tener tramos constantes, discontinuidades ni caídas a tasa constante. Las aproximaciones buscan el mejor compromiso.</p>
+<h3 id="42-aproximaciones-clasicas">4.2 Aproximaciones clásicas</h3>
+<table>
+<thead>
+<tr>
+<th>Aproximación</th>
+<th>Banda de paso</th>
+<th>Banda de rechazo</th>
+<th>Transición para un orden dado</th>
+<th>Retardo de grupo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Butterworth</td>
+<td>Máximamente plana, monótona</td>
+<td>Monótona</td>
+<td>Media</td>
+<td>Moderadamente variable</td>
+</tr>
+<tr>
+<td>Chebyshev tipo I</td>
+<td>Rizado de igual amplitud</td>
+<td>Monótona</td>
+<td>Más abrupta que Butterworth</td>
+<td>Muy variable cerca del corte</td>
+</tr>
+<tr>
+<td>Chebyshev tipo II (inversa)</td>
+<td>Monótona</td>
+<td>Rizado de igual amplitud</td>
+<td>Más abrupta que Butterworth</td>
+<td>Mejor que tipo I</td>
+</tr>
+<tr>
+<td>Elíptica (Cauer)</td>
+<td>Rizado</td>
+<td>Rizado</td>
+<td>La más abrupta</td>
+<td>La peor</td>
+</tr>
+<tr>
+<td>Bessel</td>
+<td>Monótona, caída suave</td>
+<td>Monótona</td>
+<td>La más lenta</td>
+<td>Máximamente plano (fase casi lineal)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Butterworth.</strong> Su magnitud cuadrada es</p>
+<div class="arithmatex">\[
+\lvert H(j\omega)\rvert^2 = \frac{1}{1 + \varepsilon^2\,(\omega/\omega_c)^{2n}}
+\]</div>
+<p>Para <span class="arithmatex">\(\omega \gg \omega_c\)</span> cae <span class="arithmatex">\(20n\)</span> dB por década. El orden mínimo que cumple <span class="arithmatex">\(A_p\)</span> en <span class="arithmatex">\(\omega_p\)</span> y <span class="arithmatex">\(A_s\)</span> en <span class="arithmatex">\(\omega_s\)</span> es</p>
+<div class="arithmatex">\[
+n \ge \frac{\log_{10}\!\left[\dfrac{10^{A_s/10}-1}{10^{A_p/10}-1}\right]}{2\log_{10}(\omega_s/\omega_p)}
+\]</div>
+<p>y se redondea hacia arriba. Los polos del prototipo normalizado (<span class="arithmatex">\(\omega_c = 1\)</span>, <span class="arithmatex">\(\varepsilon = 1\)</span>) están sobre un círculo de radio 1, igualmente espaciados en el semiplano izquierdo.</p>
+<p><strong>Bessel</strong> se escoge cuando importa conservar la forma de onda (pulsos, ECG, datos), porque todas las componentes de la banda de paso se retrasan casi lo mismo y casi no hay sobrepaso en la respuesta al escalón.</p>
+<p>En MATLAB: <code>buttord</code>/<code>butter</code>, <code>cheb1ord</code>/<code>cheby1</code>, <code>cheb2ord</code>/<code>cheby2</code>, <code>ellipord</code>/<code>ellip</code>, <code>besself</code>; con la opción <code>'s'</code> el diseño es analógico.</p>
+<h3 id="43-desnormalizacion-y-transformaciones-de-frecuencia">4.3 Desnormalización y transformaciones de frecuencia</h3>
+<p>Se diseña un prototipo pasabajos normalizado (<span class="arithmatex">\(\omega_p = 1\)</span>) y luego se sustituye <span class="arithmatex">\(s\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th>De pasabajos a</th>
+<th>Sustitución</th>
+<th>Orden</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pasabajos con corte <span class="arithmatex">\(\omega_c\)</span></td>
+<td><span class="arithmatex">\(s \to s/\omega_c\)</span></td>
+<td>Igual</td>
+</tr>
+<tr>
+<td>Pasaaltos</td>
+<td><span class="arithmatex">\(s \to \omega_p/s\)</span></td>
+<td>Igual</td>
+</tr>
+<tr>
+<td>Pasabanda</td>
+<td><span class="arithmatex">\(s \to \dfrac{s^2 + \omega_{p1}\omega_{p2}}{(\omega_{p2}-\omega_{p1})\,s}\)</span></td>
+<td>El doble</td>
+</tr>
+<tr>
+<td>Banda rechazada</td>
+<td><span class="arithmatex">\(s \to \dfrac{(\omega_{p2}-\omega_{p1})\,s}{s^2 + \omega_{p1}\omega_{p2}}\)</span></td>
+<td>El doble</td>
+</tr>
+</tbody>
+</table>
+<p>En MATLAB: <code>lp2lp</code>, <code>lp2hp</code>, <code>lp2bp</code>, <code>lp2bs</code>, o directamente <code>butter(n, Wn, 'high'|'bandpass'|'stop', 's')</code>.</p>
+<h3 id="44-sistemas-de-segundo-orden">4.4 Sistemas de segundo orden</h3>
+<div class="arithmatex">\[
+H(s) = \frac{\omega_0^2}{s^2 + 2\xi\omega_0 s + \omega_0^2} = \frac{\omega_0^2}{s^2 + \dfrac{\omega_0}{Q}s + \omega_0^2},\qquad \xi = \frac{1}{2Q}
+\]</div>
+<div class="arithmatex">\[
+s_{1,2} = -\xi\omega_0 \pm j\omega_0\sqrt{1-\xi^2}
+\]</div>
+<table>
+<thead>
+<tr>
+<th>Caso</th>
+<th><span class="arithmatex">\(\xi\)</span></th>
+<th><span class="arithmatex">\(Q\)</span></th>
+<th>Polos</th>
+<th>Respuesta al escalón</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oscilatorio</td>
+<td>0</td>
+<td>∞</td>
+<td><span class="arithmatex">\(\pm j\omega_0\)</span></td>
+<td>Oscilación sostenida</td>
+</tr>
+<tr>
+<td>Subamortiguado</td>
+<td><span class="arithmatex">\(0&lt;\xi&lt;1\)</span></td>
+<td><span class="arithmatex">\(&gt;0{,}5\)</span></td>
+<td>Complejos conjugados</td>
+<td>Oscila y se asienta, con sobrepaso</td>
+</tr>
+<tr>
+<td>Críticamente amortiguado</td>
+<td>1</td>
+<td>0,5</td>
+<td>Real doble en <span class="arithmatex">\(-\omega_0\)</span></td>
+<td>La más rápida sin sobrepaso</td>
+</tr>
+<tr>
+<td>Sobreamortiguado</td>
+<td><span class="arithmatex">\(&gt;1\)</span></td>
+<td><span class="arithmatex">\(&lt;0{,}5\)</span></td>
+<td>Dos reales distintos</td>
+<td>Lenta, sin sobrepaso</td>
+</tr>
+</tbody>
+</table>
+<p>Para el caso subamortiguado:</p>
+<div class="arithmatex">\[
+M_p = e^{-\pi\xi/\sqrt{1-\xi^2}} \qquad\qquad t_s(2\,\%) \approx \frac{4}{\xi\omega_0}
+\]</div>
+<p>Un Butterworth de segundo orden tiene <span class="arithmatex">\(Q = 1/\sqrt{2} \approx 0{,}707\)</span>. En un pasabanda, <span class="arithmatex">\(Q = \omega_0/BW\)</span>, con <span class="arithmatex">\(BW\)</span> el ancho de banda entre los puntos de −3 dB.</p>
+<p><strong>Implementación pasiva (RLC serie, salida en el condensador):</strong> <span class="arithmatex">\(\omega_0 = 1/\sqrt{LC}\)</span>, <span class="arithmatex">\(\xi = \dfrac{R}{2L\omega_0}\)</span>, <span class="arithmatex">\(Q = \dfrac{\omega_0 L}{R}\)</span>.</p>
+<p><strong>Implementaciones activas:</strong></p>
+<ul>
+<li><strong>Sallen-Key.</strong> La más popular. El operacional trabaja como amplificador de ganancia fija, así que depende poco de sus limitaciones, y los valores de R y C son parecidos. Su desventaja es que <span class="arithmatex">\(f_c\)</span> y <span class="arithmatex">\(Q\)</span> son sensibles a la ganancia, sobre todo con <span class="arithmatex">\(Q\)</span> alto, y son difíciles de sintonizar por separado.</li>
+<li><strong>Retroalimentación múltiple (MFB).</strong> Invierte la fase (+180°), depende más del operacional y se usa con <span class="arithmatex">\(Q\)</span> bajos. La dispersión de valores de los componentes es mayor.</li>
+<li><strong>Bicuadráticos (biquad, por ejemplo Ackerberg-Mossberg).</strong> Usan varios operacionales (integradores). Permiten ajustar <span class="arithmatex">\(\omega_0\)</span> y <span class="arithmatex">\(Q\)</span> de forma casi independiente y entregan varias salidas (LP, BP, HP).</li>
+</ul>
+<p>Un filtro de orden alto se implementa como <strong>cascada de secciones de segundo orden</strong>, más una de primer orden si el orden es impar. Cada sección realiza un par de polos con su propio <span class="arithmatex">\(Q\)</span>.</p>
+<h3 id="45-ruido-termico">4.5 Ruido térmico</h3>
+<p>Toda resistencia a temperatura <span class="arithmatex">\(T\)</span> genera ruido blanco gaussiano por el movimiento térmico de los electrones (Johnson-Nyquist). Su valor rms en un ancho de banda <span class="arithmatex">\(B\)</span> es</p>
+<div class="arithmatex">\[
+v_n = \sqrt{4kTRB}, \qquad k = 1{,}38\times10^{-23}\ \text{J/K}
+\]</div>
+<p>El ruido crece con la resistencia, la temperatura y el ancho de banda. Por eso conviene limitar la banda con filtros.</p>
+<h2 id="5-muestreo-y-reconstruccion">5. Muestreo y reconstrucción</h2>
+<h3 id="51-teorema-del-muestreo">5.1 Teorema del muestreo</h3>
+<p>El muestreo uniforme toma <span class="arithmatex">\(x[n] = x(nT_s)\)</span>, con <span class="arithmatex">\(f_s = 1/T_s\)</span>. En frecuencia, muestrear equivale a <strong>repetir el espectro</strong> de la señal en múltiplos de <span class="arithmatex">\(f_s\)</span>:</p>
+<div class="arithmatex">\[
+X_s(f) = \frac{1}{T_s}\sum_{k=-\infty}^{\infty} X(f - k f_s)
+\]</div>
+<ul>
+<li><strong>Señal de banda base</strong> de ancho <span class="arithmatex">\(B\)</span>: las réplicas no se superponen si <span class="arithmatex">\(f_s \ge 2B\)</span> (criterio de Nyquist). <span class="arithmatex">\(f_s/2\)</span> es la <strong>frecuencia de Nyquist</strong>.</li>
+<li>Si una componente está por encima de <span class="arithmatex">\(f_s/2\)</span>, aparece "doblada" en <span class="arithmatex">\(f_a = \lvert f - k f_s\rvert\)</span>, con el <span class="arithmatex">\(k\)</span> que deje <span class="arithmatex">\(f_a\)</span> entre 0 y <span class="arithmatex">\(f_s/2\)</span>. Eso es el <strong>aliasing</strong>, y no se puede deshacer después de muestrear.</li>
+<li><strong>Señal pasabanda</strong> entre <span class="arithmatex">\(f_1\)</span> y <span class="arithmatex">\(f_2\)</span>, con <span class="arithmatex">\(B = f_2 - f_1\)</span>: puede muestrearse a <span class="arithmatex">\(f_s = 2f_2/m\)</span>, con <span class="arithmatex">\(m\)</span> la parte entera de <span class="arithmatex">\(f_2/B\)</span>. Las réplicas caen en los huecos. Esto se usa en receptores y en medición (submuestreo).</li>
+</ul>
+<h3 id="52-tipos-de-muestreo">5.2 Tipos de muestreo</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Cómo es</th>
+<th>Comentario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instantáneo (impulsivo)</td>
+<td>Multiplica por un tren de impulsos</td>
+<td>Modelo matemático; no es físicamente realizable</td>
+</tr>
+<tr>
+<td>Natural</td>
+<td>Multiplica por un tren de pulsos de ancho finito; la muestra sigue la forma de la señal durante el pulso</td>
+<td>Las réplicas se ponderan por la envolvente sinc del pulso</td>
+</tr>
+<tr>
+<td>Con retención (S/H)</td>
+<td>Toma el valor al inicio del pulso y lo mantiene, normalmente en un condensador</td>
+<td>El más usado. Equivale a impulsos seguidos de un retenedor de orden cero</td>
+</tr>
+</tbody>
+</table>
+<p>El <strong>retenedor de orden cero</strong> tiene respuesta en magnitud</p>
+<div class="arithmatex">\[
+\lvert H_{ZOH}(f)\rvert = \left\lvert \frac{\sin(\pi f/f_s)}{\pi f/f_s} \right\rvert
+\]</div>
+<p>que en <span class="arithmatex">\(f_s/2\)</span> vale <span class="arithmatex">\(2/\pi\)</span> (−3,9 dB). El filtro de reconstrucción puede compensar esa caída con una forma <span class="arithmatex">\(x/\sin x\)</span>.</p>
+<h3 id="53-filtro-antialias">5.3 Filtro antialias</h3>
+<p>Se ubica <strong>antes</strong> del muestreador y es analógico, normalmente pasabajos (a veces pasabanda). En su diseño intervienen seis frecuencias:</p>
+<table>
+<thead>
+<tr>
+<th>Frecuencia</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(f_{SIGNAL}\)</span></td>
+<td>Ancho de banda de la señal de interés</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_{LSB}\)</span></td>
+<td>Hasta dónde el error de ganancia del filtro es menor que el permitido en LSB</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_C\)</span></td>
+<td>Frecuencia de corte (−3 dB) del filtro, típicamente 2 a 10 veces <span class="arithmatex">\(f_{LSB}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_{PEAK}\)</span></td>
+<td>Máxima frecuencia a la que el operacional entrega su excursión completa</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_S\)</span></td>
+<td>Frecuencia de muestreo del ADC</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_{GBW}\)</span></td>
+<td>Producto ganancia-ancho de banda del operacional</td>
+</tr>
+</tbody>
+</table>
+<div class="arithmatex">\[
+E_{dB} = 20\log_{10}\frac{2^N - \text{err}}{2^N} \qquad f_{GBW} \ge 100\cdot G\cdot Q\cdot f_C \qquad f_{PEAK} = \frac{SR}{\pi V_{pp}}
+\]</div>
+<p>Reglas prácticas para <span class="arithmatex">\(f_S\)</span>: más del doble de <span class="arithmatex">\(f_C\)</span> (idealmente más de 10 veces), mayor que <span class="arithmatex">\(f_{PEAK}\)</span>, o la que deje el aliasing por debajo del nivel aceptable de ruido.</p>
+<h2 id="6-cuantizacion-y-conversion-ad">6. Cuantización y conversión A/D</h2>
+<h3 id="61-cuantizacion-uniforme">6.1 Cuantización uniforme</h3>
+<p>Un cuantizador de <span class="arithmatex">\(N\)</span> bits con escala completa <span class="arithmatex">\(FS\)</span> tiene <span class="arithmatex">\(2^N\)</span> niveles y paso</p>
+<div class="arithmatex">\[
+\text{LSB} = \frac{FS}{2^N}
+\]</div>
+<p>El error de cuantización se modela como ruido uniforme entre <span class="arithmatex">\(-\text{LSB}/2\)</span> y <span class="arithmatex">\(+\text{LSB}/2\)</span>, de potencia <span class="arithmatex">\(\text{LSB}^2/12\)</span>. Para una señal con factor de cresta <span class="arithmatex">\(FC\)</span> cuyo pico coincide con la escala completa:</p>
+<div class="arithmatex">\[
+SNR_{dB} = 6{,}02N + 4{,}77 - 20\log_{10}FC
+\]</div>
+<p>Para un seno (<span class="arithmatex">\(FC = \sqrt{2}\)</span>) queda la fórmula conocida</p>
+<div class="arithmatex">\[
+SNR_{dB} = 6{,}02N + 1{,}76
+\]</div>
+<p>Cada bit adicional aporta unos 6 dB. Una señal con factor de cresta alto, como la voz, necesita más bits para la misma SNR.</p>
+<h3 id="62-el-conversor-del-arduino-uno-atmega328p">6.2 El conversor del Arduino UNO (ATmega328P)</h3>
+<ul>
+<li>ADC de aproximaciones sucesivas de 10 bits, con multiplexor de 8 canales y referencia seleccionable (por ejemplo AVCC). Unas 15 000 muestras por segundo a resolución completa; el reloj del ADC se fija con un preescalador.</li>
+<li><strong>Modo libre (free running):</strong> cada conversión arranca al terminar la anterior; la tasa depende del reloj del ADC.</li>
+<li><strong>Disparo por temporizador:</strong> la conversión arranca con un evento del Timer0 (comparación con OCR0A). Así la tasa de muestreo es exacta y constante, que es lo que exige el procesamiento de señales.</li>
+<li>El resultado queda en ADCL y ADCH; se lee primero ADCL.</li>
+</ul>
+<h3 id="63-temporizadores-e-interrupciones">6.3 Temporizadores e interrupciones</h3>
+<ul>
+<li>Timer0 y Timer2 son de 8 bits; Timer1 es de 16 bits. Modos: normal, CTC, Fast PWM, PWM de fase correcta y (Timer1) fase y frecuencia correcta.</li>
+<li>En <strong>CTC</strong> el contador va de 0 a OCRnA y se reinicia. La frecuencia de los eventos es</li>
+</ul>
+<div class="arithmatex">\[
+f = \frac{f_{clk}}{N_{pre}\,(1 + \text{OCRnA})}
+\]</div>
+<p>con <span class="arithmatex">\(f_{clk} = 16\)</span> MHz y <span class="arithmatex">\(N_{pre}\)</span> el preescalador (1, 8, 64, 256, 1024).</p>
+<ul>
+<li><strong>Interrupciones frente a sondeo (polling):</strong> con interrupciones, una rutina (ISR) atiende el evento apenas ocurre, y el programa principal queda libre. El bit I del registro SREG las habilita globalmente.</li>
+<li>Las variables compartidas entre la ISR y <code>loop()</code> se declaran <code>volatile</code>, para que el compilador las lea de memoria en cada acceso. <code>volatile</code> no hace atómicas las operaciones de varios bytes.</li>
+</ul>
+<h2 id="7-conversion-da-con-pwm">7. Conversión D/A con PWM</h2>
+<p>Una señal PWM tiene período <span class="arithmatex">\(T\)</span> y ancho de pulso <span class="arithmatex">\(D\)</span>. Su <strong>ciclo útil</strong> es <span class="arithmatex">\(C = D/T\)</span> y su valor medio es</p>
+<div class="arithmatex">\[
+\bar{v} = C\cdot V_{max}
+\]</div>
+<p>Variando el ciclo útil con cada muestra se codifica la señal en el valor medio. Un <strong>filtro pasabajos</strong> recupera ese valor medio y elimina la portadora en <span class="arithmatex">\(f_{PWM}\)</span> y sus armónicos. El filtro debe dejar pasar la banda de la señal y atenuar mucho en <span class="arithmatex">\(f_{PWM}\)</span>, así que conviene que <span class="arithmatex">\(f_{PWM}\)</span> sea mucho mayor que el ancho de banda de la señal. Un filtro de mayor orden atenúa más la portadora.</p>
+<table>
+<thead>
+<tr>
+<th>Modo</th>
+<th>Rampa</th>
+<th>Frecuencia</th>
+<th>Comentario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fast PWM</td>
+<td>Simple (diente de sierra)</td>
+<td><span class="arithmatex">\(f_{clk}/(N\,(1+TOP))\)</span></td>
+<td>El pulso siempre empieza al inicio del período; su centro se corre con el ciclo útil (desfase)</td>
+</tr>
+<tr>
+<td>Fase correcta</td>
+<td>Doble (triangular)</td>
+<td><span class="arithmatex">\(f_{clk}/(2N\cdot TOP)\)</span></td>
+<td>Pulsos centrados en el período; la mitad de frecuencia para el mismo TOP</td>
+</tr>
+<tr>
+<td>Fase y frecuencia correcta (Timer1)</td>
+<td>Doble</td>
+<td><span class="arithmatex">\(f_{clk}/(2N\cdot TOP)\)</span></td>
+<td>TOP en ICR1, se actualiza sin glitches</td>
+</tr>
+</tbody>
+</table>
+<p>La <strong>resolución</strong> es <span class="arithmatex">\(\log_2(TOP+1)\)</span> bits. Con el Timer1 se puede usar ICR1 como TOP para escoger 8, 9 o 10 bits (TOP = 255, 511, 1023). <strong>Más resolución implica menor frecuencia de portadora:</strong> es el compromiso central del PWM como conversor D/A.</p>
+<h2 id="8-sobremuestreo-y-modulacion-sigma-delta">8. Sobremuestreo y modulación sigma-delta</h2>
+<h3 id="81-sobremuestreo-directo">8.1 Sobremuestreo directo</h3>
+<p>Si se muestrea a <span class="arithmatex">\(f_s = OSR\cdot 2B\)</span>, la potencia del ruido de cuantización se reparte hasta <span class="arithmatex">\(f_s/2\)</span> y solo la fracción <span class="arithmatex">\(1/OSR\)</span> queda en la banda útil. Con un filtro digital y diezmado se elimina el resto:</p>
+<div class="arithmatex">\[
+\Delta SNR = 10\log_{10}(OSR)
+\]</div>
+<p>Son 3 dB (medio bit) por cada vez que se duplica la tasa. Funciona solo si el error de cuantización no está correlacionado con la señal (por ejemplo, si hay algo de ruido).</p>
+<h3 id="82-codificacion-diferencial">8.2 Codificación diferencial</h3>
+<p>La señal de audio tiene muestras muy correlacionadas. Cuantizar la <strong>diferencia</strong> entre la muestra actual y una predicción (la anterior) reduce la varianza de lo que se cuantiza. Para que el error no se acumule, el cuantizador se coloca dentro de un lazo de realimentación.</p>
+<h3 id="83-modulador-sigma-delta">8.3 Modulador sigma-delta</h3>
+<p>Un integrador, un cuantizador de 1 bit y una realimentación de la salida. El lazo obliga a que el <strong>promedio de la salida siga a la entrada</strong>. En el modelo discreto de primer orden:</p>
+<div class="arithmatex">\[
+Y(z) = z^{-1}X(z) + (1 - z^{-1})E(z)
+\]</div>
+<ul>
+<li>La señal pasa sin cambios, solo retrasada (STF = <span class="arithmatex">\(z^{-1}\)</span>).</li>
+<li>El ruido de cuantización pasa por <span class="arithmatex">\(1 - z^{-1}\)</span>, un <strong>pasaaltos</strong>: se empuja hacia altas frecuencias (<strong>conformación del ruido</strong>), fuera de la banda útil.</li>
+<li>Un filtro pasabajos y un diezmador digitales eliminan ese ruido y entregan muestras de muchos bits a la tasa final.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Técnica</th>
+<th>Mejora por octava de sobremuestreo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sobremuestreo directo (PCM, PWM)</td>
+<td>3 dB</td>
+</tr>
+<tr>
+<td>Sigma-delta de primer orden</td>
+<td>9 dB</td>
+</tr>
+<tr>
+<td>Sigma-delta de orden <span class="arithmatex">\(n\)</span></td>
+<td><span class="arithmatex">\(6n + 3\)</span> dB</td>
+</tr>
+</tbody>
+</table>
+<p>Los ADC de audio y los micrófonos MEMS digitales (como el INMP441) usan un modulador sigma-delta seguido de un filtro de diezmado. Como DAC, una salida sigma-delta de 1 bit seguida de un filtro analógico logra más resolución que un PWM a la misma frecuencia de reloj.</p>
+<h2 id="9-filtros-digitales">9. Filtros digitales</h2>
+<h3 id="91-sistemas-discretos">9.1 Sistemas discretos</h3>
+<p>Un SLIT discreto causal se describe con una ecuación en diferencias y su transformada Z:</p>
+<div class="arithmatex">\[
+y[n] = \sum_{k=0}^{M} b_k\,x[n-k] - \sum_{k=1}^{N} a_k\,y[n-k] \qquad\qquad H(z) = \frac{\sum b_k z^{-k}}{1 + \sum a_k z^{-k}}
+\]</div>
+<ul>
+<li>La respuesta en frecuencia es <span class="arithmatex">\(H(e^{j\omega})\)</span>, con <span class="arithmatex">\(\omega = 2\pi f/f_s\)</span> en radianes por muestra. Es periódica con período <span class="arithmatex">\(2\pi\)</span> y basta estudiarla entre 0 y <span class="arithmatex">\(\pi\)</span> (0 a <span class="arithmatex">\(f_s/2\)</span>).</li>
+<li><strong>Estabilidad:</strong> un sistema causal es estable si y solo si todos sus polos están <strong>dentro del círculo unitario</strong>, <span class="arithmatex">\(\lvert p_k\rvert &lt; 1\)</span>.</li>
+<li>Un polo cerca del círculo unitario en el ángulo <span class="arithmatex">\(\theta\)</span> produce un pico en <span class="arithmatex">\(\omega = \theta\)</span>; un cero sobre el círculo anula esa frecuencia.</li>
+</ul>
+<h3 id="92-filtros-ideales-y-fase-lineal">9.2 Filtros ideales y fase lineal</h3>
+<p>El pasabajos ideal tiene respuesta al impulso <span class="arithmatex">\(h[n] = \dfrac{\sin(\omega_c n)}{\pi n}\)</span>: es <strong>no causal</strong> y <strong>no absolutamente sumable</strong>, así que no se puede implementar. Sirve como punto de partida para aproximar.</p>
+<p>Un filtro sin distorsión de fase retrasa todas las componentes por igual: su fase es lineal, <span class="arithmatex">\(\theta(\omega) = -n_0\omega\)</span>. El <strong>retardo de grupo</strong></p>
+<div class="arithmatex">\[
+\tau_g(\omega) = -\frac{d\theta(\omega)}{d\omega}
+\]</div>
+<p>es el retardo, en muestras, que sufre la envolvente de una componente de frecuencia <span class="arithmatex">\(\omega\)</span>. Con fase lineal es constante.</p>
+<h3 id="93-filtros-fir">9.3 Filtros FIR</h3>
+<div class="arithmatex">\[
+y[n] = \sum_{k=0}^{M-1} b_k\,x[n-k], \qquad h[n] = b_n
+\]</div>
+<ul>
+<li>Sin realimentación: solo tienen polos en <span class="arithmatex">\(z = 0\)</span>, así que <strong>siempre son estables</strong>.</li>
+<li><strong>Fase lineal</strong> si los coeficientes son simétricos, <span class="arithmatex">\(h[n] = h[M-1-n]\)</span>, o antisimétricos. El retardo de grupo es constante e igual a <span class="arithmatex">\((M-1)/2\)</span> muestras, el centro de simetría.</li>
+<li>Los ceros de un FIR de fase lineal aparecen en grupos: si <span class="arithmatex">\(z_1\)</span> es cero, también lo son <span class="arithmatex">\(1/z_1\)</span>, <span class="arithmatex">\(z_1^*\)</span> y <span class="arithmatex">\(1/z_1^*\)</span>.</li>
+<li>Con longitud par y simetría par, <span class="arithmatex">\(H(z)\)</span> tiene un cero en <span class="arithmatex">\(z = -1\)</span> (en <span class="arithmatex">\(f_s/2\)</span>): ese tipo no sirve para pasaaltos.</li>
+<li>Necesitan muchos más coeficientes que un IIR para la misma selectividad.</li>
+</ul>
+<h3 id="94-diseno-fir-por-ventanas">9.4 Diseño FIR por ventanas</h3>
+<ol>
+<li>
+<p>Se escribe la respuesta ideal <span class="arithmatex">\(H_d(\omega)\)</span> y se calcula <span class="arithmatex">\(h_d[n]\)</span>, desplazada <span class="arithmatex">\(\alpha = (M-1)/2\)</span> para que sea simétrica. Para un pasabajos:</p>
+<div class="arithmatex">\[h_d[n] = \frac{\sin(\omega_c(n-\alpha))}{\pi(n-\alpha)}\]</div>
+</li>
+<li>
+<p>Se trunca a <span class="arithmatex">\(M\)</span> coeficientes multiplicando por una ventana <span class="arithmatex">\(w[n]\)</span>: <span class="arithmatex">\(h[n] = h_d[n]\,w[n]\)</span>.</p>
+</li>
+<li>Multiplicar en el tiempo es <strong>convolucionar en frecuencia</strong>: <span class="arithmatex">\(H(\omega) = H_d(\omega) * W(\omega)\)</span>. El lóbulo principal de <span class="arithmatex">\(W\)</span> ensancha la transición; los lóbulos laterales producen rizado (fenómeno de Gibbs).</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Ventana</th>
+<th>Lóbulo lateral de la ventana</th>
+<th>Atenuación aproximada del filtro</th>
+<th>Ancho de transición <span class="arithmatex">\(\Delta f/f_s\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rectangular</td>
+<td>−13 dB</td>
+<td>21 dB</td>
+<td><span class="arithmatex">\(0{,}9/M\)</span></td>
+</tr>
+<tr>
+<td>Hann</td>
+<td>−31 dB</td>
+<td>44 dB</td>
+<td><span class="arithmatex">\(3{,}1/M\)</span></td>
+</tr>
+<tr>
+<td>Hamming</td>
+<td>−42 dB</td>
+<td>53 dB</td>
+<td><span class="arithmatex">\(3{,}3/M\)</span></td>
+</tr>
+<tr>
+<td>Blackman</td>
+<td>−57 dB</td>
+<td>74 dB</td>
+<td><span class="arithmatex">\(5{,}5/M\)</span></td>
+</tr>
+<tr>
+<td>Kaiser</td>
+<td>Ajustable con <span class="arithmatex">\(\beta\)</span></td>
+<td>Ajustable</td>
+<td>Ajustable</td>
+</tr>
+</tbody>
+</table>
+<p>La ventana fija la atenuación; la longitud <span class="arithmatex">\(M\)</span> fija el ancho de la transición. Aumentar <span class="arithmatex">\(M\)</span> con ventana rectangular angosta la transición pero no reduce el pico de rizado (≈ 9 %). En MATLAB: <code>fir1</code>, <code>fir2</code>, <code>filterDesigner</code>, <code>freqz</code>, <code>grpdelay</code>, <code>zplane</code>.</p>
+<h3 id="95-filtros-iir">9.5 Filtros IIR</h3>
+<ul>
+<li>Tienen realimentación (polos fuera del origen). Con pocos coeficientes logran transiciones abruptas y resonancias.</li>
+<li>Pueden volverse inestables si un polo sale del círculo unitario, por diseño o al cuantizar coeficientes.</li>
+<li>No tienen fase lineal.</li>
+<li>Se diseñan a partir de prototipos analógicos (Butterworth, Chebyshev, elíptico) con <code>butter</code>, <code>cheby1</code>, <code>cheby2</code>, <code>ellip</code> en modo digital, o ubicando polos y ceros a mano.</li>
+</ul>
+<p><strong>Diseño por polos y ceros.</strong> Un par de polos en <span class="arithmatex">\(re^{\pm j\theta}\)</span> produce una resonancia en <span class="arithmatex">\(f_0 = \theta f_s/(2\pi)\)</span>, con ancho de banda aproximado <span class="arithmatex">\((1-r)f_s/\pi\)</span> para <span class="arithmatex">\(r\)</span> cercano a 1:</p>
+<div class="arithmatex">\[
+H(z) = \frac{1}{1 - 2r\cos\theta\, z^{-1} + r^2 z^{-2}}
+\]</div>
+<p>Ceros en <span class="arithmatex">\(e^{\pm j\theta}\)</span> (sobre el círculo) producen un <strong>notch</strong> que anula esa frecuencia. Con <span class="arithmatex">\(r = 1\)</span> los polos quedan sobre el círculo: la respuesta al impulso no decae y se obtiene un <strong>oscilador digital</strong> de frecuencia <span class="arithmatex">\(\theta f_s/(2\pi)\)</span>.</p>
+<h3 id="96-estructuras-de-realizacion">9.6 Estructuras de realización</h3>
+<table>
+<thead>
+<tr>
+<th>Estructura</th>
+<th>Retardos</th>
+<th>Comentario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIR forma directa (línea de retardo, transversal)</td>
+<td><span class="arithmatex">\(M-1\)</span></td>
+<td><span class="arithmatex">\(M\)</span> multiplicaciones</td>
+</tr>
+<tr>
+<td>FIR de fase lineal plegada</td>
+<td><span class="arithmatex">\(M-1\)</span></td>
+<td>Se suman primero las muestras que comparten coeficiente: unas <span class="arithmatex">\(M/2\)</span> multiplicaciones</td>
+</tr>
+<tr>
+<td>IIR forma directa I</td>
+<td><span class="arithmatex">\(M + N\)</span></td>
+<td>Ceros y polos por separado</td>
+</tr>
+<tr>
+<td>IIR forma directa II (canónica)</td>
+<td><span class="arithmatex">\(\max(M, N)\)</span></td>
+<td>Polos primero, comparten la línea de retardo</td>
+</tr>
+<tr>
+<td>Transpuestas</td>
+<td>Iguales</td>
+<td>Teorema de transposición: invertir todas las ramas e intercambiar entrada y salida no cambia <span class="arithmatex">\(H(z)\)</span></td>
+</tr>
+<tr>
+<td>Cascada de secciones de segundo orden (SOS)</td>
+<td>—</td>
+<td>Lo usual para IIR de orden alto</td>
+</tr>
+</tbody>
+</table>
+<p>Las formas directas de orden alto son muy sensibles a la cuantización: un error pequeño en un coeficiente del denominador puede mover mucho los polos. En una cascada SOS cada par de polos depende solo de dos coeficientes. MATLAB describe cada sección como una fila <span class="arithmatex">\([b_0\ b_1\ b_2\ a_0\ a_1\ a_2]\)</span> más una ganancia <span class="arithmatex">\(g\)</span>; hay que revisar con <em>Show filter structure</em> dónde se aplica <span class="arithmatex">\(g\)</span> y con qué signo entran los <span class="arithmatex">\(a_k\)</span>.</p>
+<h3 id="97-implementacion-en-un-microcontrolador">9.7 Implementación en un microcontrolador</h3>
+<ul>
+<li><strong>Buffer circular:</strong> en lugar de desplazar las <span class="arithmatex">\(M\)</span> muestras pasadas en cada instante, se guarda la nueva sobre la más antigua y se recorre el arreglo con un índice que da la vuelta. El costo de memoria es el mismo y se evitan <span class="arithmatex">\(M\)</span> copias por muestra.</li>
+<li><strong>Coeficientes enteros:</strong> se escalan por <span class="arithmatex">\(2^F\)</span> y se redondean. La salida se devuelve a la escala de la entrada con un corrimiento <code>&gt;&gt; F</code>. Si la suma de los coeficientes escalados es <span class="arithmatex">\(2^F\)</span>, la ganancia DC es 1.</li>
+<li><strong>Tipos y casting:</strong> en el Arduino UNO <code>int</code> es de 16 bits. Los productos y el acumulador deben calcularse en 32 bits, convirtiendo los operandos <strong>antes</strong> de multiplicar: <code>(int32_t)a * (int32_t)b</code>.</li>
+<li><strong>IIR en forma directa II:</strong> <span class="arithmatex">\(w_0 = x - a_1 w_1 - a_2 w_2\)</span>, <span class="arithmatex">\(y = b_0 w_0 + b_1 w_1 + b_2 w_2\)</span>. Luego los estados se actualizan del más viejo al más nuevo: primero <span class="arithmatex">\(w_2 \leftarrow w_1\)</span> y después <span class="arithmatex">\(w_1 \leftarrow w_0\)</span>.</li>
+<li><strong>Una estructura por sección</strong> (coeficientes y estados) permite tener varios filtros y encadenar secciones SOS sin mezclar estados.</li>
+<li><strong>Verificación:</strong> respuesta al impulso, al escalón y a senoides de varias frecuencias, comparadas muestra a muestra con la simulación; tiempo de ejecución con <code>micros()</code>.</li>
+</ul>
+<h2 id="10-punto-fijo">10. Punto fijo</h2>
+<h3 id="101-idea-central">10.1 Idea central</h3>
+<p>El procesador guarda <strong>enteros</strong>. El programador decide qué factor de escala representa cada entero. Si el entero almacenado es <span class="arithmatex">\(r\)</span> y se reservan <span class="arithmatex">\(F\)</span> bits fraccionarios:</p>
+<div class="arithmatex">\[
+x = \frac{r}{2^F} = r\cdot 2^{-F}, \qquad \text{LSB} = 2^{-F}
+\]</div>
+<p>El punto binario no ocupa memoria: es una regla de interpretación. Por ejemplo, el entero <span class="arithmatex">\(r = 22 = 10110_2\)</span> con <span class="arithmatex">\(F = 3\)</span> representa <span class="arithmatex">\(10.110_2 = 22/8 = 2{,}75\)</span>.</p>
+<h3 id="102-formatos-y-rangos">10.2 Formatos y rangos</h3>
+<ul>
+<li><span class="arithmatex">\(W\)</span>: bits totales; <span class="arithmatex">\(F\)</span> o <span class="arithmatex">\(QF\)</span>: bits fraccionarios; <span class="arithmatex">\(QI\)</span>: bits enteros sin contar el signo.</li>
+<li>Con signo (complemento a dos): <span class="arithmatex">\(W = 1 + QI + QF\)</span>, y el bit más significativo pesa <span class="arithmatex">\(-2^{W-1-F}\)</span>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Formato</th>
+<th>Mínimo</th>
+<th>Máximo</th>
+<th>LSB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sin signo, <span class="arithmatex">\(W\)</span>, <span class="arithmatex">\(F\)</span></td>
+<td>0</td>
+<td><span class="arithmatex">\((2^W-1)/2^F\)</span></td>
+<td><span class="arithmatex">\(2^{-F}\)</span></td>
+</tr>
+<tr>
+<td>Con signo, <span class="arithmatex">\(W\)</span>, <span class="arithmatex">\(F\)</span></td>
+<td><span class="arithmatex">\(-2^{W-1}/2^F\)</span></td>
+<td><span class="arithmatex">\((2^{W-1}-1)/2^F\)</span></td>
+<td><span class="arithmatex">\(2^{-F}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Ejemplo: con signo, <span class="arithmatex">\(W = 6\)</span>, <span class="arithmatex">\(F = 2\)</span> es Q3.2, con rango de −8 a 7,75 y LSB 0,25. El rango con signo no es simétrico: falta un LSB en el lado positivo.</p>
+<p><strong>La notación Q cambia entre autores:</strong> unos cuentan el signo dentro de la parte entera y otros no, así que "Q1.15" puede significar cosas distintas. Lo seguro es declarar siempre <strong>signed, W y F</strong>. En MATLAB: <code>numerictype(signo, W, F)</code>.</p>
+<p>Más bits fraccionarios dan pasos más finos, pero con <span class="arithmatex">\(W\)</span> fijo reducen el rango.</p>
+<h3 id="103-codificar-redondear-y-desbordar">10.3 Codificar, redondear y desbordar</h3>
+<p>Para codificar se multiplica por <span class="arithmatex">\(2^F\)</span>; si el resultado no es entero, hay que redondear. Ejemplo con <span class="arithmatex">\(F = 3\)</span>: <span class="arithmatex">\(0{,}6\cdot 8 = 4{,}8\)</span>.</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Entero guardado</th>
+<th>Valor</th>
+<th>Error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hacia abajo (floor)</td>
+<td>4</td>
+<td>0,5</td>
+<td>−0,1</td>
+</tr>
+<tr>
+<td>Al más cercano</td>
+<td>5</td>
+<td>0,625</td>
+<td>+0,025</td>
+</tr>
+<tr>
+<td>Hacia cero</td>
+<td>4</td>
+<td>0,5</td>
+<td>−0,1</td>
+</tr>
+</tbody>
+</table>
+<p>El método de redondeo forma parte de la especificación del filtro. Redondear siempre hacia abajo introduce un sesgo (error medio de −LSB/2); al más cercano no.</p>
+<p>Cuando un resultado no cabe en el formato hay <strong>overflow</strong>:</p>
+<ul>
+<li><strong>Saturación:</strong> se guarda el extremo más cercano (el máximo positivo o el mínimo negativo). El error queda acotado.</li>
+<li><strong>Wrap:</strong> se conservan solo los <span class="arithmatex">\(W\)</span> bits bajos; equivale a operar módulo <span class="arithmatex">\(2^W\)</span>. Un resultado positivo grande puede leerse como negativo, un error enorme que en audio suena como un golpe.</li>
+</ul>
+<h3 id="104-tamanos-de-los-tipos-en-c">10.4 Tamaños de los tipos en C</h3>
+<p>En el Arduino UNO (ATmega328P): <code>char</code>/<code>int8_t</code> 8 bits, <code>int</code>/<code>int16_t</code> 16 bits, <code>long</code>/<code>int32_t</code> 32 bits, <code>long long</code>/<code>int64_t</code> 64 bits y <code>float</code> de 32 bits en IEEE 754. El estándar de C permite que <code>int</code> cambie entre plataformas: para exigir un ancho concreto se usa <code>&lt;stdint.h&gt;</code>. <code>sizeof</code> devuelve bytes, no bits.</p>
+<h3 id="105-operaciones">10.5 Operaciones</h3>
+<ul>
+<li>
+<p><strong>Multiplicación:</strong> las escalas también se multiplican.</p>
+<div class="arithmatex">\[\frac{r_a}{2^{F_a}}\cdot\frac{r_b}{2^{F_b}} = \frac{r_a r_b}{2^{F_a+F_b}} \quad\Rightarrow\quad W_p = W_a + W_b,\quad F_p = F_a + F_b\]</div>
+</li>
+<li>
+<p><strong>Suma de dos números</strong> con la misma escala: un bit más en el peor caso. Si las escalas son distintas, primero se alinean los puntos binarios.</p>
+</li>
+<li><strong>Acumulación de <span class="arithmatex">\(N\)</span> productos</strong> iguales: <span class="arithmatex">\(W_{acc} = W_p + \lceil\log_2 N\rceil\)</span> (bits de guarda), <span class="arithmatex">\(F_{acc} = F_p\)</span>.</li>
+<li><strong>Reescalar</strong> la salida: se corre a la derecha <span class="arithmatex">\(F_{acc} - F_y\)</span> bits. Esa conversión necesita una política de redondeo y de overflow.</li>
+</ul>
+<p>Ejemplo de cadena FIR: entrada y coeficientes con signo <span class="arithmatex">\((12, 11)\)</span>, 64 taps. Producto <span class="arithmatex">\((24, 22)\)</span>, acumulador <span class="arithmatex">\((24 + 6, 22) = (30, 22)\)</span>. Para una salida <span class="arithmatex">\((12, 11)\)</span> se descartan <span class="arithmatex">\(22 - 11 = 11\)</span> bits fraccionarios.</p>
+<h3 id="106-dos-significados-de-normalizar">10.6 Dos significados de "normalizar"</h3>
+<ol>
+<li><strong>Reescalar un número:</strong> cambiar de <span class="arithmatex">\(F\)</span>, por ejemplo de 22 a 11. Es una operación de formato.</li>
+<li><strong>Normalizar la ganancia del filtro:</strong> escoger coeficientes que den la ganancia deseada. En un pasabajos, <span class="arithmatex">\(H(0) = \sum_k h[k]\)</span>.</li>
+</ol>
+<p>Cuantizar los coeficientes cambia la ganancia DC. Ejemplo: <span class="arithmatex">\(h = [0{,}3\ \ 0{,}4\ \ 0{,}3]\)</span> suma 1, pero con <span class="arithmatex">\(F = 2\)</span> (paso 0,25) queda <span class="arithmatex">\(\hat{h} = [0{,}25\ \ 0{,}5\ \ 0{,}25]\)</span>, que también suma 1; con <span class="arithmatex">\(F = 3\)</span> queda <span class="arithmatex">\([0{,}25\ \ 0{,}375\ \ 0{,}25]\)</span>, que suma 0,875. Siempre hay que revisar las dos ganancias, la ideal y la cuantizada.</p>
+<p>La cuantización de coeficientes también se ve como un ruido en la respuesta en frecuencia. En el laboratorio se escoge el menor ancho de palabra que mantiene ese ruido por debajo de un umbral, por ejemplo −50 o −60 dB.</p>
+<h2 id="11-analisis-espectral-dft-fft-ventanas-y-thd">11. Análisis espectral: DFT, FFT, ventanas y THD</h2>
+<h3 id="111-dft-y-fft">11.1 DFT y FFT</h3>
+<div class="arithmatex">\[
+X[k] = \sum_{n=0}^{N-1} x[n]\,e^{-j2\pi kn/N}, \qquad k = 0, \dots, N-1
+\]</div>
+<ul>
+<li>El bin <span class="arithmatex">\(k\)</span> corresponde a <span class="arithmatex">\(f_k = k f_s/N\)</span>. La <strong>resolución en frecuencia</strong> es <span class="arithmatex">\(\Delta f = f_s/N\)</span>, y la ventana dura <span class="arithmatex">\(N/f_s\)</span> segundos.</li>
+<li>Para una señal real, <span class="arithmatex">\(X[N-k] = X^*[k]\)</span>: basta con los bins 0 a <span class="arithmatex">\(N/2\)</span>.</li>
+<li>La DFT directa cuesta <span class="arithmatex">\(O(N^2)\)</span> operaciones; la FFT, <span class="arithmatex">\(O(N\log_2 N)\)</span>. Con <span class="arithmatex">\(N = 1024\)</span> son cerca de un millón frente a unas diez mil.</li>
+</ul>
+<h3 id="112-leakage-y-ventanas">11.2 Leakage y ventanas</h3>
+<p>La DFT supone que el bloque de <span class="arithmatex">\(N\)</span> muestras se repite periódicamente. Si el bloque no contiene un número entero de ciclos, aparecen discontinuidades en los bordes y la energía de un tono se reparte en muchos bins: es el <strong>leakage</strong> (fuga espectral). Multiplicar el bloque por una ventana que va suavemente a cero en los extremos reduce los lóbulos laterales, a costa de ensanchar el lóbulo principal.</p>
+<table>
+<thead>
+<tr>
+<th>Ventana</th>
+<th>Primer lóbulo lateral</th>
+<th>Ganancia coherente (promedio de <span class="arithmatex">\(w\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rectangular</td>
+<td>−13 dB</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Hann</td>
+<td>−31 dB</td>
+<td>0,5</td>
+</tr>
+<tr>
+<td>Hamming</td>
+<td>−42 dB</td>
+<td>0,54</td>
+</tr>
+</tbody>
+</table>
+<p>Para leer la amplitud de un tono hay que compensar la ventana:</p>
+<div class="arithmatex">\[
+A_k = \frac{2\,\lvert X[k]\rvert}{N\cdot\bar{w}}
+\]</div>
+<p>Si el tono cae justo en un bin, incluso la ventana rectangular muestra un pico limpio. Las diferencias entre ventanas se ven con tonos que caen entre dos bins.</p>
+<h3 id="113-distorsion-armonica-total-thd">11.3 Distorsión armónica total (THD)</h3>
+<div class="arithmatex">\[
+THD(\%) = 100\cdot\frac{\sqrt{V_2^2 + V_3^2 + \cdots + V_n^2}}{V_1}
+\]</div>
+<p>Los armónicos se suman en potencia (raíz de la suma de cuadrados). Para medirla con FFT: muestrear varios ciclos (por ejemplo 10 de 60 Hz a 1 kHz o más), aplicar una ventana, calcular <span class="arithmatex">\(\lvert X[k]\rvert\)</span>, compensar la ganancia de la ventana y aplicar la fórmula. La THD importa por las pérdidas en transformadores y motores, la interferencia y normas como IEEE 519.</p>
+<h3 id="114-stft-y-espectrograma">11.4 STFT y espectrograma</h3>
+<p>La transformada de Fourier de tiempo corto aplica la DFT a bloques sucesivos con ventana y salto <span class="arithmatex">\(R\)</span>. El espectrograma es su magnitud al cuadrado. Una ventana larga da buena resolución en frecuencia y mala en tiempo; una corta, lo contrario.</p>
+<h2 id="12-senales-aleatorias-y-filtro-de-wiener">12. Señales aleatorias y filtro de Wiener</h2>
+<h3 id="121-repaso-de-probabilidad">12.1 Repaso de probabilidad</h3>
+<ul>
+<li><strong>Media</strong> <span class="arithmatex">\(\mu = E[X]\)</span>, <strong>varianza</strong> <span class="arithmatex">\(\sigma^2 = E[X^2] - \mu^2\)</span>.</li>
+<li><strong>Covarianza</strong> <span class="arithmatex">\(\sigma_{XY} = E[XY] - \mu_X\mu_Y\)</span>. Si es cero, las variables no están correlacionadas. Independencia implica no correlación, pero no al revés.</li>
+<li><strong>Distribuciones</strong> frecuentes: uniforme (<span class="arithmatex">\(\sigma^2 = (b-a)^2/12\)</span>, el modelo del error de cuantización), normal (el ruido térmico) y exponencial.</li>
+<li>Un proceso es <strong>estacionario en sentido amplio</strong> si su media es constante y su autocorrelación depende solo de la diferencia de tiempos, <span class="arithmatex">\(\gamma_{xx}(m) = E[x(n)x(n-m)]\)</span>.</li>
+<li>La <strong>densidad espectral de potencia</strong> es la transformada de Fourier de la autocorrelación (Wiener-Khinchin). El <strong>ruido blanco</strong> tiene autocorrelación <span class="arithmatex">\(\sigma^2\delta(m)\)</span> y densidad espectral plana.</li>
+<li>A la salida de un SLIT: <span class="arithmatex">\(S_{yy}(f) = \lvert H(f)\rvert^2 S_{xx}(f)\)</span>.</li>
+</ul>
+<h3 id="122-filtro-de-wiener-fir">12.2 Filtro de Wiener FIR</h3>
+<p>Se busca el FIR <span class="arithmatex">\(h[0], \dots, h[M-1]\)</span> que, a partir de una entrada <span class="arithmatex">\(x[n]\)</span> (por ejemplo señal más ruido), estime una señal deseada <span class="arithmatex">\(d[n]\)</span> con el menor error cuadrático medio:</p>
+<div class="arithmatex">\[
+J = E\left[\lvert e[n]\rvert^2\right], \qquad e[n] = d[n] - \sum_{k=0}^{M-1} h[k]\,x[n-k]
+\]</div>
+<ul>
+<li>Si <span class="arithmatex">\(d[n] = s[n]\)</span> es <strong>filtrado</strong>; si <span class="arithmatex">\(d[n] = s[n+D]\)</span>, <strong>predicción</strong>; si <span class="arithmatex">\(d[n] = s[n-D]\)</span>, <strong>suavizado</strong>.</li>
+<li><strong>Principio de ortogonalidad:</strong> en el óptimo, el error no está correlacionado con ninguna de las entradas usadas, <span class="arithmatex">\(E[x[n-l]\,e^*[n]] = 0\)</span> para <span class="arithmatex">\(l = 0, \dots, M-1\)</span>.</li>
+<li>
+<p>De ahí salen las <strong>ecuaciones de Wiener-Hopf</strong>:</p>
+<div class="arithmatex">\[\sum_{k=0}^{M-1} h[k]\,\gamma_{xx}(l-k) = \gamma_{dx}(l), \qquad \Gamma_M\,\mathbf{h} = \boldsymbol{\gamma}_d \;\Rightarrow\; \mathbf{h}_{opt} = \Gamma_M^{-1}\boldsymbol{\gamma}_d\]</div>
+</li>
+<li>
+<p><span class="arithmatex">\(\Gamma_M\)</span> es la matriz de autocorrelación de la entrada: <strong>Toeplitz</strong> (diagonales constantes) y hermitiana. Por eso puede resolverse eficientemente con el algoritmo de Levinson-Durbin.</p>
+</li>
+<li>Si la señal y el ruido no están correlacionados, <span class="arithmatex">\(\gamma_{xx} = \gamma_{ss} + \gamma_{ww}\)</span> y <span class="arithmatex">\(\gamma_{dx} = \gamma_{ss}\)</span>.</li>
+</ul>
+<h2 id="13-formulas-clave">13. Fórmulas clave</h2>
+<table>
+<thead>
+<tr>
+<th>Tema</th>
+<th>Fórmula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decibeles</td>
+<td><span class="arithmatex">\(20\log_{10}(\text{amplitud})\)</span>, <span class="arithmatex">\(10\log_{10}(\text{potencia})\)</span></td>
+</tr>
+<tr>
+<td>Polo simple</td>
+<td>−3 dB y −45° en <span class="arithmatex">\(\omega_c\)</span>; −20 dB/década</td>
+</tr>
+<tr>
+<td>Segundo orden</td>
+<td><span class="arithmatex">\(\xi = 1/(2Q)\)</span>; <span class="arithmatex">\(M_p = e^{-\pi\xi/\sqrt{1-\xi^2}}\)</span>; −40 dB/década</td>
+</tr>
+<tr>
+<td>Butterworth</td>
+<td><span class="arithmatex">\(\lvert H\rvert^2 = 1/(1+\varepsilon^2\omega^{2n})\)</span>; <span class="arithmatex">\(A_p = 10\log_{10}(1+\varepsilon^2)\)</span></td>
+</tr>
+<tr>
+<td>Nyquist</td>
+<td><span class="arithmatex">\(f_s \ge 2B\)</span>; alias en <span class="arithmatex">\(\lvert f - kf_s\rvert\)</span></td>
+</tr>
+<tr>
+<td>Muestreo pasabanda</td>
+<td><span class="arithmatex">\(f_s = 2f_2/m\)</span>, <span class="arithmatex">\(m = \lfloor f_2/B\rfloor\)</span></td>
+</tr>
+<tr>
+<td>Retenedor de orden cero</td>
+<td><span class="arithmatex">\(\lvert\operatorname{sinc}(f/f_s)\rvert\)</span>; −3,9 dB en <span class="arithmatex">\(f_s/2\)</span></td>
+</tr>
+<tr>
+<td>Cuantización</td>
+<td><span class="arithmatex">\(\text{LSB} = FS/2^N\)</span>; ruido <span class="arithmatex">\(\text{LSB}^2/12\)</span>; <span class="arithmatex">\(SNR = 6{,}02N + 1{,}76\)</span> dB (seno)</td>
+</tr>
+<tr>
+<td>Timer en CTC</td>
+<td><span class="arithmatex">\(f = f_{clk}/(N\,(1+\text{OCR}))\)</span></td>
+</tr>
+<tr>
+<td>PWM</td>
+<td><span class="arithmatex">\(\bar{v} = C\,V_{max}\)</span>; resolución <span class="arithmatex">\(\log_2(TOP+1)\)</span>; Fast: <span class="arithmatex">\(f_{clk}/(N(1+TOP))\)</span>; fase correcta: <span class="arithmatex">\(f_{clk}/(2N\,TOP)\)</span></td>
+</tr>
+<tr>
+<td>Sobremuestreo</td>
+<td>Directo: 3 dB/octava; sigma-delta de orden <span class="arithmatex">\(n\)</span>: <span class="arithmatex">\(6n+3\)</span> dB/octava</td>
+</tr>
+<tr>
+<td>Frecuencia digital</td>
+<td><span class="arithmatex">\(\omega = 2\pi f/f_s\)</span></td>
+</tr>
+<tr>
+<td>FIR de fase lineal</td>
+<td><span class="arithmatex">\(h[n] = \pm h[M-1-n]\)</span>; retardo <span class="arithmatex">\((M-1)/2\)</span> muestras</td>
+</tr>
+<tr>
+<td>Estabilidad IIR</td>
+<td>Polos con <span class="arithmatex">\(\lvert p\rvert &lt; 1\)</span></td>
+</tr>
+<tr>
+<td>Resonador digital</td>
+<td>Polos en <span class="arithmatex">\(re^{\pm j\theta}\)</span>; <span class="arithmatex">\(f_0 = \theta f_s/(2\pi)\)</span>; <span class="arithmatex">\(BW \approx (1-r)f_s/\pi\)</span></td>
+</tr>
+<tr>
+<td>Punto fijo</td>
+<td><span class="arithmatex">\(x = r/2^F\)</span>; producto: <span class="arithmatex">\(W_a+W_b\)</span>, <span class="arithmatex">\(F_a+F_b\)</span>; acumulador: <span class="arithmatex">\(+\lceil\log_2 N\rceil\)</span> bits</td>
+</tr>
+<tr>
+<td>DFT</td>
+<td><span class="arithmatex">\(\Delta f = f_s/N\)</span>; bin <span class="arithmatex">\(k \leftrightarrow kf_s/N\)</span>; FFT <span class="arithmatex">\(O(N\log_2 N)\)</span></td>
+</tr>
+<tr>
+<td>Amplitud con ventana</td>
+<td><span class="arithmatex">\(A_k = 2\lvert X[k]\rvert/(N\bar{w})\)</span></td>
+</tr>
+<tr>
+<td>THD</td>
+<td><span class="arithmatex">\(100\sqrt{\sum_{k\ge2}V_k^2}/V_1\)</span></td>
+</tr>
+<tr>
+<td>Ruido térmico</td>
+<td><span class="arithmatex">\(v_n = \sqrt{4kTRB}\)</span></td>
+</tr>
+<tr>
+<td>Wiener</td>
+<td><span class="arithmatex">\(\Gamma_M\mathbf{h} = \boldsymbol{\gamma}_d\)</span></td>
+</tr>
+</tbody>
+</table>
+    </main>
+  </div>
+  <footer class="pie">
+    Material de repaso del curso Procesamiento de Señales · Prof. Francisco Carlos Calderón
+  </footer>
+</body>
+</html>
